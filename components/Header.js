@@ -1,36 +1,67 @@
 import { css } from '@emotion/react';
-import Image from 'next/image';
 import Link from 'next/link';
 
 const headerStyles = css`
-  padding: 1.4rem 1.4rem;
-  background: transparent;
+  padding: 1rem;
   display: flex;
+  align-items: center;
+  color: #000000;
+  font-size: 2.5rem;
+  background-color: transparent;
   justify-content: space-between;
-  align-items: flex-start;
-  color: #fff;
-  font-size: 16px;
-  letter-spacing: 3px;
+  border-radius: 55px;
+  border: 2px solid #000000;
+  margin: 20px 20px 15px;
+  height: 110px;
+
+  > div {
+    margin-left: 10px;
+  }
 
   > div > a + a {
     margin-left: 10px;
   }
 `;
 
+const empty = css`
+  color: #000000;
+  background-color: transparent;
+  border-radius: 50px;
+  border: 2px solid #000000;
+  height: 60px;
+  width: 60px;
+  margin: 0.5rem;
+  font-size: 1.2rem;
+  padding-top: 13px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+`;
+
+// const full = css`
+//   color: #000000;
+//   background-color: #000000;
+//   border-radius: 50px;
+//   border: 2px solid #000000;
+//   color: #f6f5f1;
+//   height: 60px;
+//   width: 60px;
+//   padding: 1.3%;
+//   margin: 0.5rem;
+//   font-size: 1.2rem;
+//   justify-content: center;
+//   align-items: center;
+//   text-align: center;
+// `;
+
 export default function Header() {
   return (
     <header css={headerStyles}>
       <div>
-        <Link href="/">
-          <Image
-            src="/logos/logo_small_yellow.png"
-            alt="logo"
-            width="167"
-            height="139"
-          />
-        </Link>
+        <Link href="/dotshop">Dot Shop</Link>
       </div>
-      <Image src="/cart.png" alt="cart" width="30" height="30" />
+
+      <div css={empty}>0</div>
     </header>
   );
 }

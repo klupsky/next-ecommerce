@@ -9,28 +9,14 @@ export default function App({ Component, pageProps }) {
           html,
           body {
             padding: 0;
-            font-family: 'Open Sans', sans-serif;
-            background: #023365;
-            font-size: 16px;
-            letter-spacing: 0.16px;
-
-            h1 {
-              font-family: 'Open Sans', sans-serif;
-              font-weight: normal;
-              font-size: 16px;
-              letter-spacing: 3px;
-              text-transform: uppercase;
-            }
+            font-family: 'Poppins', sans-serif;
+            letter-spacing: 0.5px;
+            background: #f6f5f1;
 
             a {
               text-decoration: none;
-              color: #fff;
-              letter-spacing: 3px;
-              text-transform: uppercase;
-            }
-
-            a:hover {
-              color: #f1dd38;
+              color: #000000;
+              background-color: transparent;
             }
           }
 

@@ -6,8 +6,8 @@ console.log(fs);
 // End simulation
 
 export const productList = [
-  { id: '1', name: 'Negroni', type: 'Bottled Cocktail', price: 10.0 },
-  { id: '2', name: 'Hoodie', type: 'Merch', price: 10.0 },
-  { id: '3', name: 'Pin', type: 'Merch', price: 10.0 },
-  { id: '4', name: '10€ Voucher', type: 'Voucher', price: 10.0 },
+  { id: '1', name: 'pink dot', type: 'happy', price: 102.0, color: '#ff92e9' },
+  { id: '2', name: 'green dot', type: 'stoned', price: 5.0, color: '#82c7a3' },
+  { id: '3', name: 'red dot', type: 'rolling', price: 11.0, color: '#ff6843' },
+  { id: '4', name: 'lilac dot', type: 'dreamy', price: 34.0, color: '#af99ff' },
 ];
