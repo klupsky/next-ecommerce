@@ -25,7 +25,7 @@ export default function Home() {
       <main css={mainStyle}>
         <h2>
           Thank you for your dot purchase!
-          <Link href={'/dotshop'}>return to the dot shop.</Link>
+          <Link href="/dotshop">return to the dot shop.</Link>
         </h2>
       </main>
     </div>

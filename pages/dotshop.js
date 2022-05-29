@@ -74,7 +74,7 @@ const productStyles = css`
   flex-wrap: wrap;
 `;
 
-export default function Dotshop(props) {
+export default function dotshop(props) {
   return (
     <div>
       <Head>

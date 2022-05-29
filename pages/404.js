@@ -24,7 +24,7 @@ export default function Home() {
 
       <main css={mainStyle}>
         <h2>
-          you got lost! <Link href={'/dotshop'}>return to the dot shop.</Link>
+          you got lost! <Link href='/dotshop'>return to the dot shop.</Link>
         </h2>
       </main>
     </div>

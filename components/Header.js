@@ -38,22 +38,6 @@ const empty = css`
   text-align: center;
 `;
 
-// const full = css`
-//   color: #000000;
-//   background-color: #000000;
-//   border-radius: 50px;
-//   border: 2px solid #000000;
-//   color: #f6f5f1;
-//   height: 60px;
-//   width: 60px;
-//   padding: 1.3%;
-//   margin: 0.5rem;
-//   font-size: 1.2rem;
-//   justify-content: center;
-//   align-items: center;
-//   text-align: center;
-// `;
-
 export default function Header() {
   return (
     <header css={headerStyles}>

@@ -19,7 +19,7 @@ export default function Home() {
       </Head>
 
       <main css={mainStyle}>
-        <Link href={'/dotshop'}>dot dot dot </Link>
+        <Link href="/dotshop">dot dot dot </Link>
       </main>
     </div>
   );

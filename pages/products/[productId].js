@@ -1,8 +1,11 @@
 import { css } from '@emotion/react';
-//import Cookies from 'js-cookie';
+import Cookies from 'js-cookie';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
+import { getParsedCookie, setStringifiedCookie } from '../../util/cookies';
+// import { useState } from 'react';
+// import { getParsedCookie, setStringifiedCookie } from '../../util/cookies';
 import { productList } from '../../util/products';
 
 const mainStyle = css`
@@ -77,7 +80,7 @@ const buttonStyle = css`
   justify-content: center;
   margin: 0.5rem;
 `;
-const buttonCheckoutStyle = css`
+const buttonEffectStyle = css`
   color: #000000;
   background-color: transparent;
   border-radius: 50px;
@@ -85,26 +88,15 @@ const buttonCheckoutStyle = css`
   height: 60px;
   min-width: 60px;
   padding: 2%;
-  margin: 0.5rem;
   font-size: 1.3rem;
   justify-content: center;
   align-items: center;
   text-align: center;
 
   :hover {
-    color: #000000;
     background-color: #000000;
-    border-radius: 50px;
     border: 2px solid #000000;
     color: #f6f5f1;
-    height: 60px;
-    min-width: 60px;
-    padding: 2%;
-    margin: 0.5rem;
-    font-size: 1.3rem;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
   }
 `;
 
@@ -140,15 +132,7 @@ const shopFooterStyles = css`
   }
 `;
 
-const addBoxStyles = css`
-  margin: 0px;
-  width: 70%;
-`;
-
 export default function Product(props) {
-  const [shoppingCart, setshoppingCart] = useState('empty' in props.product);
-  const [value, setValue] = useState(props.product.shoppingCart || 0);
-
   if (!props.product) {
     return (
       <div css={mainStyle}>
@@ -199,14 +183,25 @@ export default function Product(props) {
             <br />
           </div>
           <div css={buttonBoxStyles}>
-            <div css={addBoxStyles}>
-              <button css={buttonStyle}>+</button>
-              <button css={buttonStyle}>-</button>
-              <button css={buttonStyle}>0</button>
-              <button css={buttonStyle}>{props.product.price} €</button>
-            </div>
+            <button
+              css={buttonEffectStyle}
+              onClick={() => {
+                // 1. get the original array from the cookies
+                const currentCart = Cookies.get('cart') // is diet defined???
+                  ? getParsedCookie('cart') // if true
+                  : []; // if false
+                const newCart = [...currentCart, props.product.id];
 
-            <button css={buttonCheckoutStyle}>BUY</button>
+                setStringifiedCookie('cart', newCart);
+              }}
+            >
+              add to cart
+            </button>
+            <button css={buttonEffectStyle}>+</button>
+            <button css={buttonStyle}>0{/* {value} */}</button>
+            <button css={buttonEffectStyle}>-</button>
+            <button css={buttonStyle}>{props.product.price} €</button>
+            <button css={buttonEffectStyle}>buy</button>
           </div>
         </div>
       </div>
