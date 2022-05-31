@@ -19,7 +19,7 @@ export default function Home() {
       <Head>
         <title>Dot Shop is saying thank you!</title>
         <meta name="THANK YOU" content="thank you for shopping dots" />
-        <link rel="icon" href="/doticon.svg" />
+        <link rel="icon" href="/dot.svg" />
       </Head>
 
       <main css={mainStyle}>

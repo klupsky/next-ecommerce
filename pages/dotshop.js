@@ -8,12 +8,12 @@ const shopHeaderStyles = css`
   text-align: center;
   justify-content: center;
   color: #000000;
-  font-size: 2.5rem;
   background-color: transparent;
   border-radius: 50px;
   border: 2px solid #000000;
   margin: 0px 20px;
   height: 80px;
+  font-size: 1.7rem;
   text-align: center;
 
   h1 {
@@ -22,7 +22,25 @@ const shopHeaderStyles = css`
     font-weight: normal;
   }
 
-  h2 {
+  > div {
+    margin-left: 1rem;
+  }
+`;
+
+const shopFooterStyles = css`
+  text-align: center;
+  justify-content: center;
+  color: #000000;
+  background-color: transparent;
+  border-radius: 50px;
+  border: 2px solid #000000;
+  margin: 0px 20px;
+  height: 80px;
+  padding: 18px;
+  font-size: 1.7rem;
+  text-align: center;
+
+  h1 {
     padding: 0;
     font-size: 1.7rem;
     font-weight: normal;
@@ -74,13 +92,13 @@ const productStyles = css`
   flex-wrap: wrap;
 `;
 
-export default function dotshop(props) {
+export default function Dotshop(props) {
   return (
     <div>
       <Head>
         <title>Dot Shop</title>
         <meta name="Dot Shop" content="shop a dot" />
-        <link rel="icon" href="/doticon.svg" />
+        <link rel="icon" href="/dot.svg" />
       </Head>
       <div css={shopHeaderStyles}>
         <h1>shop a dot</h1>
@@ -92,11 +110,13 @@ export default function dotshop(props) {
             <div key={`product-${product.id}`}>
               <div>
                 <Link href={`/products/${product.id}`}>
-                  <Image
-                    src={`/images/${product.id}.svg`}
-                    width="300"
-                    height="300"
-                  />
+                  <div>
+                    <Image
+                      src={`/images/${product.id}.svg`}
+                      width="300"
+                      height="300"
+                    />
+                  </div>
                 </Link>
 
                 <Link href={`/products/${product.id}`}>
@@ -109,9 +129,7 @@ export default function dotshop(props) {
           );
         })}
       </div>
-      <div css={shopHeaderStyles}>
-        <h2>everybody loves dots</h2>
-      </div>
+      <div css={shopFooterStyles}>everybody loves dots</div>
     </div>
   );
 }

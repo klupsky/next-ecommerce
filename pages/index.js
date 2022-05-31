@@ -15,7 +15,7 @@ export default function Home() {
       <Head>
         <title>Dot Shop</title>
         <meta name="Dot Shop" content="shop a dot" />
-        <link rel="icon" href="/doticon.svg" />
+        <link rel="icon" href="/dot.svg" />
       </Head>
 
       <main css={mainStyle}>
