@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 import { getParsedCookie, setStringifiedCookie } from '../../util/cookies';
-import { productList } from '../../util/products';
+import { getProduct } from '../../util/products';
 
 const mainStyle = css`
   text-align: center;
@@ -138,21 +138,16 @@ const buttonBoxStyles = css`
 
 const shopFooterStyles = css`
   text-align: center;
+  justify-content: center;
   color: #000000;
-  font-size: 2.5rem;
   background-color: transparent;
   border-radius: 50px;
   border: 2px solid #000000;
   margin: 0px 20px;
-  padding: 18px;
   height: 80px;
+  padding: 18px;
   font-size: 1.7rem;
-
-  h1 {
-    padding: 0;
-    font-size: 1.7rem;
-    font-weight: normal;
-  }
+  text-align: center;
 `;
 
 export default function Product(props) {
@@ -187,6 +182,7 @@ export default function Product(props) {
         <div css={boxStyles}>
           <div css={imageStyles}>
             <Image
+              data-test-id="product-image"
               src={`/images/${props.product.id}.svg`}
               width="500"
               height="500"
@@ -196,7 +192,7 @@ export default function Product(props) {
             <Link href="/dotshop"> GO BACK</Link>
             <div css={productTitleStyles}>
               <h1>{props.product.name}</h1>
-              {props.product.price} €
+              <span data-test-id="product-price">{props.product.price}</span> €
             </div>
             <div css={textStyle}>
               Congratulations, you made an excellent choice! This is the{' '}
@@ -213,15 +209,16 @@ export default function Product(props) {
                 <label css={labelStyles}>
                   quantity:
                   <input
+                    data-test-id="product-quantity"
                     css={inputStyles}
                     type="number"
                     value={quantity}
                     steps="1"
                     min="1"
                     max="10"
-                    onChange={(e) => {
-                      e.currentTarget.value > -1
-                        ? setQuantity(e.currentTarget.value)
+                    onChange={(event) => {
+                      event.currentTarget.value > -1
+                        ? setQuantity(event.currentTarget.value)
                         : setQuantity(0);
                     }}
                   />
@@ -229,6 +226,7 @@ export default function Product(props) {
               </div>
 
               <button
+                data-test-id="product-add-to-cart"
                 css={buttonEffectStyle}
                 onClick={() => {
                   const currentCart = Cookies.get('cart')
@@ -280,18 +278,12 @@ export default function Product(props) {
   );
 }
 
-export function getServerSideProps(context) {
-  const singleProduct = productList.find((product) => {
-    return product.id === context.query.productId;
-  });
-
-  if (!singleProduct) {
-    context.res.statusCode = 404;
-  }
+export async function getServerSideProps(context) {
+  const product = await getProduct(context.query.productId);
 
   return {
     props: {
-      product: singleProduct || null,
+      product: product,
     },
   };
 }

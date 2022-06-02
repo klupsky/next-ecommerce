@@ -1,11 +1,10 @@
 import { css } from '@emotion/react';
 import Cookies from 'js-cookie';
 import Head from 'next/head';
-import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { getParsedCookie, setStringifiedCookie } from '../util/cookies';
-import { productList } from '../util/products';
+import { getProducts } from '../util/products';
 
 const shopHeaderStyles = css`
   text-align: center;
@@ -15,32 +14,12 @@ const shopHeaderStyles = css`
   background-color: transparent;
   border-radius: 50px;
   border: 2px solid #000000;
-  margin: 0px 20px;
+  margin: 20px 20px;
   text-align: center;
 
   h1 {
     font-size: 1.7rem;
     font-weight: normal;
-  }
-
-  > div {
-    margin-left: 1rem;
-  }
-`;
-
-const checkoutFooterStyles = css`
-  text-align: center;
-  color: #f6f5f1;
-  background-color: #000000;
-  border-radius: 50px;
-  border: 2px solid #000000;
-  margin: 15px 20px;
-  padding: 18px;
-  height: 80px;
-  font-size: 1.7rem;
-
-  a {
-    color: #f6f5f1;
   }
 `;
 
@@ -64,6 +43,20 @@ const buttonEffectStyle = css`
   }
 `;
 
+const shopFooterStyles = css`
+  text-align: center;
+  justify-content: center;
+  color: #000000;
+  background-color: transparent;
+  border-radius: 50px;
+  border: 2px solid #000000;
+  margin: 0px 20px;
+  height: 80px;
+  padding: 18px;
+  font-size: 1.7rem;
+  text-align: center;
+`;
+
 const productBoxStyles = css`
   width: 100%;
   justify-content: center;
@@ -72,16 +65,16 @@ const productBoxStyles = css`
 
 export default function Cart() {
   const [cartProducts, setCartProducts] = useState([]);
+  const [priceSum, setPriceSum] = useState(0);
 
   // get cookies from cart
   useEffect(() => {
     const currentCart = Cookies.get('cart') ? getParsedCookie('cart') : [];
     setCartProducts(currentCart);
   }, []);
-
+  console.log(currentCart);
   // get number of items in cart
-
-  let totalQuantity = 0;
+  const totalQuantity = 0;
   for (let i = 0; i < cartProducts.length; i++) {
     totalQuantity += cartProducts[i].quantity;
   }
@@ -100,78 +93,90 @@ export default function Cart() {
       <div css={shopHeaderStyles}>
         <div css={productBoxStyles}>
           <h1>your cart</h1>
-
-          {cartProducts.map((cartProduct) => {
-            return (
-              <div key={`cart-${cartProduct.id}`}>
-                <div>
+          <div data-test-id="cart-product-<product id>">
+            {cartProducts.map((cartProduct) => {
+              return (
+                <div key={`cart-${cartProduct.id}`}>
                   <div>
-                    {cartProduct.quantity} {cartProduct.name}{' '}
-                    {cartProduct.price}
-                    <button
-                      onClick={() => {
-                        const updatedItem = cartProducts.find(
-                          (product) => product.name === cartProduct.name,
-                        );
-                        updatedItem.quantity += 1;
-                        setStringifiedCookie('cart', cartProducts);
-                        setCartProducts(cartProducts);
-                      }}
-                    >
-                      +
-                    </button>
-                    <button
-                      onClick={() => {
-                        const updatedItem = cartProducts.find(
-                          (product) => product.name === cartProduct.name,
-                        );
-                        updatedItem.quantity -= 1;
-                        setStringifiedCookie('cart', cartProducts);
-                      }}
-                    >
-                      -
-                    </button>{' '}
-                    <br />
-                    <br />
-                    <button
-                      css={buttonEffectStyle}
-                      onClick={() => {
-                        const newCart = cartProducts.filter((product) => {
-                          return product.name !== cartProduct.name;
-                        });
-                        setStringifiedCookie('cart', newCart);
-                        setCartProducts(newCart);
-                      }}
-                    >
-                      remove
-                    </button>
+                    <div>
+                      {' '}
+                      {cartProduct.quantity}
+                      <div>{cartProduct.name}</div>
+                      <div data-test-id="cart-product-quantity-<product id>"></div>
+                      <div>
+                        <p>
+                          Price: {cartProduct.price * cartProduct.quantity}.00 €
+                        </p>
+                      </div>
+                      <button
+                        onClick={() => {
+                          const updatedItem = cartProducts.find(
+                            (product) => product.id === cartProduct.id,
+                          );
+                          updatedItem.quantity += 1;
+                          setStringifiedCookie('cart', cartProducts);
+                          setCartProducts([...cartProducts]);
+                        }}
+                      >
+                        +
+                      </button>
+                      <button
+                        onClick={() => {
+                          const updatedItem = cartProducts.find(
+                            (product) => product.id === cartProduct.id,
+                          );
+                          updatedItem.quantity -= 1;
+                          if (updatedItem.quantity < 0) {
+                            updatedItem.quantity = 0;
+                          }
+                          setStringifiedCookie('cart', cartProducts);
+                          setCartProducts([...cartProducts]);
+                        }}
+                      >
+                        -
+                      </button>{' '}
+                      <br />
+                      <br />
+                      <button
+                        data-test-id="cart-product-remove-<product id>"
+                        css={buttonEffectStyle}
+                        onClick={() => {
+                          const newCart = cartProducts.filter((product) => {
+                            return product.id !== cartProduct.id;
+                          });
+                          setStringifiedCookie('cart', newCart);
+                          setCartProducts(newCart);
+                        }}
+                      >
+                        remove
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
-            );
-          })}
-          <div>total dots: {totalQuantity}</div>
+              );
+            })}
+            <div> SUM: {priceSum} </div>
+            {/* <span data-test-id="cart-total"> = {totalPrice} </span> */}
+            <br />
+          </div>
         </div>
+        <Link href="/checkout">
+          <button data-test-id="cart-checkout">check out</button>
+        </Link>
       </div>
-      <div css={checkoutFooterStyles} data-test-id="cart-checkout">
-        <Link href="/checkout">check out</Link>
+      <div css={shopFooterStyles} data-test-id="cart-checkout">
+        everybody needs dots
       </div>
     </div>
   );
 }
 
-export function getServerSideProps(context) {
-  const singleProduct = productList.find((product) => {
-    return product.id === context.query.productId;
-  });
-
-  if (!singleProduct) {
-    context.res.statusCode = 404;
-  }
+export async function getServerSideProps(context) {
+  const product = await getProducts(context.query.productId);
 
   return {
     props: {
-      product: singleProduct || null,
+      product: product,
     },
   };
 }

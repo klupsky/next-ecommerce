@@ -2,7 +2,7 @@ import { css } from '@emotion/react';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
-import { productList } from '../util/products';
+import { getProducts } from '../util/products';
 
 const shopHeaderStyles = css`
   text-align: center;
@@ -21,10 +21,6 @@ const shopHeaderStyles = css`
     font-size: 1.7rem;
     font-weight: normal;
   }
-
-  > div {
-    margin-left: 1rem;
-  }
 `;
 
 const shopFooterStyles = css`
@@ -39,16 +35,6 @@ const shopFooterStyles = css`
   padding: 18px;
   font-size: 1.7rem;
   text-align: center;
-
-  h1 {
-    padding: 0;
-    font-size: 1.7rem;
-    font-weight: normal;
-  }
-
-  > div {
-    margin-left: 1rem;
-  }
 `;
 
 const nameTagStyles = css`
@@ -119,7 +105,10 @@ export default function Dotshop(props) {
                   </div>
                 </Link>
 
-                <Link href={`/products/${product.id}`}>
+                <Link
+                  data-test-id="product-<product id>"
+                  href={`/products/${product.id}`}
+                >
                   <div css={nameTagStyles}>{product.name}</div>
                 </Link>
 
@@ -134,13 +123,18 @@ export default function Dotshop(props) {
   );
 }
 
-export function getServerSideProps() {
+// Code in getServerSideProps runs in
+// Node.js (on the server)
+//
+// Important: ONLY in the /pages directory
+export async function getServerSideProps() {
+  const products = await getProducts();
   return {
     // Anything that you pass in the props
     // object will get passed to the component
     // at the top in the `props` parameter
     props: {
-      products: productList,
+      products: products,
     },
   };
 }

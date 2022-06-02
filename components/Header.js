@@ -42,7 +42,9 @@ export default function Header() {
   return (
     <header css={headerStyles}>
       <div>
-        <Link href="/dotshop">Dot Shop</Link>
+        <Link data-test-id="products-link" href="/dotshop">
+          Dot Shop
+        </Link>
       </div>
 
       <div css={empty}>0</div>
