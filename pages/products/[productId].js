@@ -243,9 +243,9 @@ export default function Product(props) {
                       ...currentCart,
                       {
                         id: props.product.id,
-                        name: props.product.name,
-                        type: props.product.type,
-                        price: props.product.price,
+                        //name: props.product.name,
+                        //type: props.product.type,
+                        //price: props.product.price,
 
                         quantity: parseInt(quantity),
                       },

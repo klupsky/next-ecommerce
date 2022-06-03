@@ -16,7 +16,6 @@ const shopHeaderStyles = css`
   border: 2px solid #000000;
   margin: 20px 20px;
   text-align: center;
-
   h1 {
     font-size: 1.7rem;
     font-weight: normal;
@@ -35,7 +34,6 @@ const buttonEffectStyle = css`
   font-size: 1.3rem;
   justify-content: center;
   text-align: center;
-
   :hover {
     background-color: #000000;
     border: 2px solid #000000;
@@ -63,16 +61,15 @@ const productBoxStyles = css`
   align-items: center;
 `;
 
-export default function Cart() {
+export default function Cart(props) {
   const [cartProducts, setCartProducts] = useState([]);
-  const [priceSum, setPriceSum] = useState(0);
+  //const [priceSum, setPriceSum] = useState(0);
 
   // get cookies from cart
   useEffect(() => {
     const currentCart = Cookies.get('cart') ? getParsedCookie('cart') : [];
     setCartProducts(currentCart);
   }, []);
-  console.log(currentCart);
   // get number of items in cart
   const totalQuantity = 0;
   for (let i = 0; i < cartProducts.length; i++) {
@@ -98,11 +95,13 @@ export default function Cart() {
               return (
                 <div key={`cart-${cartProduct.id}`}>
                   <div>
+                    {
+                      props.product.find((product) => {
+                        return cartProduct.id === product.id;
+                      }).name
+                    }
                     <div>
-                      {' '}
                       {cartProduct.quantity}
-                      <div>{cartProduct.name}</div>
-                      <div data-test-id="cart-product-quantity-<product id>"></div>
                       <div>
                         <p>
                           Price: {cartProduct.price * cartProduct.quantity}.00 €
@@ -155,7 +154,7 @@ export default function Cart() {
                 </div>
               );
             })}
-            <div> SUM: {priceSum} </div>
+            <div> SUM: </div>
             {/* <span data-test-id="cart-total"> = {totalPrice} </span> */}
             <br />
           </div>
@@ -172,11 +171,12 @@ export default function Cart() {
 }
 
 export async function getServerSideProps(context) {
-  const product = await getProducts(context.query.productId);
+  // get products from database
+  const product = await getProducts();
+  // get products from cookies
+  const cart = JSON.parse(context.req.cookies.cart || '[]');
 
   return {
-    props: {
-      product: product,
-    },
+    props: { cart: cart, product: product },
   };
 }
