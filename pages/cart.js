@@ -63,7 +63,7 @@ const productBoxStyles = css`
 
 export default function Cart(props) {
   const [cartProducts, setCartProducts] = useState([]);
-  //const [priceSum, setPriceSum] = useState(0);
+  const [sum, setSum] = useState(0);
 
   // get cookies from cart
   useEffect(() => {
@@ -71,10 +71,12 @@ export default function Cart(props) {
     setCartProducts(currentCart);
   }, []);
   // get number of items in cart
-  const totalQuantity = 0;
-  for (let i = 0; i < cartProducts.length; i++) {
-    totalQuantity += cartProducts[i].quantity;
-  }
+  // const totalQuantity = 0;
+  // for (let i = 0; i < cartProducts.length; i++) {
+  //   totalQuantity += cartProducts[i].quantity;
+  // }
+
+  // calculate price sum
 
   return (
     <div>
@@ -88,80 +90,88 @@ export default function Cart(props) {
       </Head>
 
       <div css={shopHeaderStyles}>
-        <div css={productBoxStyles}>
-          <h1>your cart</h1>
-          <div data-test-id="cart-product-<product id>">
-            {cartProducts.map((cartProduct) => {
-              return (
-                <div key={`cart-${cartProduct.id}`}>
-                  <div>
-                    {
-                      props.product.find((product) => {
-                        return cartProduct.id === product.id;
-                      }).name
-                    }
+        {cartProducts.length === 0 ? (
+          <h1>there are no dots in your cart</h1>
+        ) : (
+          <div css={productBoxStyles}>
+            <h1>your cart</h1>
+            <div data-test-id="cart-product-<product id>">
+              {cartProducts.map((cartProduct) => {
+                return (
+                  <div key={`cart-${cartProduct.id}`}>
                     <div>
-                      {cartProduct.quantity}
+                      {
+                        props.product.find((product) => {
+                          return cartProduct.id === product.id;
+                        }).name
+                      }
                       <div>
-                        <p>
-                          Price: {cartProduct.price * cartProduct.quantity}.00 €
-                        </p>
+                        {cartProduct.quantity}
+                        <div>
+                          <p>
+                            Price:{' '}
+                            {props.product.find((product) => {
+                              return cartProduct.id === product.id;
+                            }).price * cartProduct.quantity}
+                            .00 €
+                          </p>
+                        </div>
+                        <button
+                          onClick={() => {
+                            const updatedItem = cartProducts.find(
+                              (product) => product.id === cartProduct.id,
+                            );
+                            updatedItem.quantity += 1;
+                            setStringifiedCookie('cart', cartProducts);
+                            setCartProducts([...cartProducts]);
+                          }}
+                        >
+                          +
+                        </button>
+                        <button
+                          onClick={() => {
+                            const updatedItem = cartProducts.find(
+                              (product) => product.id === cartProduct.id,
+                            );
+                            updatedItem.quantity -= 1;
+                            if (updatedItem.quantity < 0) {
+                              updatedItem.quantity = 0;
+                            }
+                            setStringifiedCookie('cart', cartProducts);
+                            setCartProducts([...cartProducts]);
+                          }}
+                        >
+                          -
+                        </button>{' '}
+                        <br />
+                        <br />
+                        <button
+                          data-test-id="cart-product-remove-<product id>"
+                          css={buttonEffectStyle}
+                          onClick={() => {
+                            const newCart = cartProducts.filter((product) => {
+                              return product.id !== cartProduct.id;
+                            });
+                            setStringifiedCookie('cart', newCart);
+                            setCartProducts(newCart);
+                          }}
+                        >
+                          remove
+                        </button>
                       </div>
-                      <button
-                        onClick={() => {
-                          const updatedItem = cartProducts.find(
-                            (product) => product.id === cartProduct.id,
-                          );
-                          updatedItem.quantity += 1;
-                          setStringifiedCookie('cart', cartProducts);
-                          setCartProducts([...cartProducts]);
-                        }}
-                      >
-                        +
-                      </button>
-                      <button
-                        onClick={() => {
-                          const updatedItem = cartProducts.find(
-                            (product) => product.id === cartProduct.id,
-                          );
-                          updatedItem.quantity -= 1;
-                          if (updatedItem.quantity < 0) {
-                            updatedItem.quantity = 0;
-                          }
-                          setStringifiedCookie('cart', cartProducts);
-                          setCartProducts([...cartProducts]);
-                        }}
-                      >
-                        -
-                      </button>{' '}
-                      <br />
-                      <br />
-                      <button
-                        data-test-id="cart-product-remove-<product id>"
-                        css={buttonEffectStyle}
-                        onClick={() => {
-                          const newCart = cartProducts.filter((product) => {
-                            return product.id !== cartProduct.id;
-                          });
-                          setStringifiedCookie('cart', newCart);
-                          setCartProducts(newCart);
-                        }}
-                      >
-                        remove
-                      </button>
                     </div>
                   </div>
-                </div>
-              );
-            })}
-            <div> SUM: </div>
-            {/* <span data-test-id="cart-total"> = {totalPrice} </span> */}
-            <br />
+                );
+              })}
+              <div> SUM: {sum}</div>
+              {/* <span data-test-id="cart-total"> = {totalPrice} </span> */}
+              <br />
+            </div>
+            <Link href="/checkout">
+              <button data-test-id="cart-checkout">check out</button>
+            </Link>
           </div>
-        </div>
-        <Link href="/checkout">
-          <button data-test-id="cart-checkout">check out</button>
-        </Link>
+        )}
       </div>
       <div css={shopFooterStyles} data-test-id="cart-checkout">
         everybody needs dots

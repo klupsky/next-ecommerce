@@ -31,3 +31,34 @@ VALUES
 
 -- read all animals:
 SELECT * FROM products;
+
+
+
+
+
+
+
+
+
+-- migration with ley
+-- adding
+
+export async function up(sql) {
+  await sql`
+    CREATE TABLE products (
+  id integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+  name varchar(50) NOT NULL,
+  type varchar(50) NOT NULL,
+  price varchar(10) NOT NULL,
+  color varchar(10) NOT NULL
+);
+
+  `;
+}
+-- dropping
+
+export async function down(sql) {
+  await sql`
+    DROP TABLE products
+  `;
+}
