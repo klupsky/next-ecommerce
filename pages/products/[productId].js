@@ -56,7 +56,6 @@ const productTitleStyles = css`
   text-align: center;
   justify-content: center;
   color: #000000;
-
   h1 {
     font-size: 1.7rem;
     font-weight: normal;
@@ -74,7 +73,6 @@ const descriptionBoxStyles = css`
   border: 2px solid #000000;
   margin: 0px 30px 18px;
   padding: 50px;
-
   a {
     text-decoration: underline;
     text-underline-position: under;
@@ -119,7 +117,6 @@ const buttonEffectStyle = css`
   font-size: 1.3rem;
   justify-content: center;
   text-align: center;
-
   :hover {
     background-color: #000000;
     border: 2px solid #000000;
@@ -235,7 +232,7 @@ export default function Product(props) {
 
                   if (
                     !currentCart.find(
-                      (cookie) => cookie.name === props.product.name,
+                      (cookie) => cookie.id === props.product.id,
                     )
                   ) {
                     // add product if cart is empty
@@ -243,9 +240,9 @@ export default function Product(props) {
                       ...currentCart,
                       {
                         id: props.product.id,
-                        //name: props.product.name,
-                        //type: props.product.type,
-                        //price: props.product.price,
+                        // name: props.product.name,
+                        // type: props.product.type,
+                        // price: props.product.price,
 
                         quantity: parseInt(quantity),
                       },
@@ -254,7 +251,7 @@ export default function Product(props) {
                   } else {
                     // add quantity if product is already in cart
                     const updatedCart = currentCart.find(
-                      (cookie) => cookie.name === props.product.name,
+                      (cookie) => cookie.id === props.product.id,
                     );
                     updatedCart.quantity += parseInt(quantity);
                     setStringifiedCookie('cart', currentCart);
