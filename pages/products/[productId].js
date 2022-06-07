@@ -80,6 +80,7 @@ const descriptionBoxStyles = css`
 `;
 
 const buttonBuyStyle = css`
+  font-family: poppins;
   color: #f6f5f1;
   background-color: #000000;
   border-radius: 50px;
@@ -87,33 +88,37 @@ const buttonBuyStyle = css`
   height: 60px;
   min-width: 60px;
   text-align: center;
-  padding: 2%;
+  padding: 10px;
   font-size: 1.3rem;
   justify-content: center;
   margin: 0.5rem;
 `;
 
 const buttonNoEffectStyle = css`
+  font-family: poppins;
+
   color: #000000;
   background-color: transparent;
   border-radius: 50px;
   border: 2px solid #000000;
   height: 60px;
   min-width: 60px;
-  padding: 2%;
+  padding: 10px;
   font-size: 1.3rem;
   justify-content: center;
   text-align: center;
 `;
 
 const buttonEffectStyle = css`
+  font-family: poppins;
+
   color: #000000;
   background-color: transparent;
   border-radius: 50px;
   border: 2px solid #000000;
   height: 60px;
   min-width: 60px;
-  padding: 2%;
+  padding: 10px;
   font-size: 1.3rem;
   justify-content: center;
   text-align: center;
@@ -125,6 +130,8 @@ const buttonEffectStyle = css`
 `;
 
 const buttonBoxStyles = css`
+  font-family: poppins;
+
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -132,6 +139,9 @@ const buttonBoxStyles = css`
   justify-content: space-between;
   align-items: center;
 `;
+
+
+
 
 const shopFooterStyles = css`
   text-align: center;
@@ -186,10 +196,10 @@ export default function Product(props) {
             />
           </div>
           <div css={descriptionBoxStyles}>
-            <Link href="/dotshop"> GO BACK</Link>
+
             <div css={productTitleStyles}>
               <h1>{props.product.name}</h1>
-              <span data-test-id="product-price">{props.product.price}</span> €
+           <span data-test-id="product-price">{props.product.price}</span> €
             </div>
             <div css={textStyle}>
               Congratulations, you made an excellent choice! This is the{' '}
@@ -242,7 +252,7 @@ export default function Product(props) {
                         id: props.product.id,
                         // name: props.product.name,
                         // type: props.product.type,
-                        // price: props.product.price,
+                         // price: props.product.price,
 
                         quantity: parseInt(quantity),
                       },
@@ -268,7 +278,8 @@ export default function Product(props) {
           </div>
         </div>
         <div css={shopFooterStyles}>
-          everybody loves a {props.product.type} dot
+
+        <Link href="/dotshop"> return to dot shopping</Link>
         </div>
       </main>
     </div>
