@@ -30,7 +30,7 @@ const buttonEffectStyle = css`
   border: 2px solid #000000;
   height: 60px;
   min-width: 60px;
-  margin: 10px 10px 0px 0px;
+  margin: 5px;
   padding: 8px;
   font-size: 1.3rem;
   justify-content: center;
@@ -54,7 +54,7 @@ const buttonBuyStyle = css`
   padding: 10px;
   font-size: 1.3rem;
   justify-content: center;
-  margin: 0.5rem 0 18px;
+  margin: 5px 0 0px;
 `;
 
 const shopFooterStyles = css`
@@ -77,24 +77,46 @@ const productBoxStyles = css`
   align-items: center;
 `;
 
+const sumStyle = css`
+  font-size: 1.3rem;
+  text-align: left;
+  text-decoration: underline;
+  text-underline-position: under;
+`;
+
 const dotGridStyles = css`
   display: inline-grid;
-  width: auto;
+  min-width: 80vw;
   grid-template-rows: auto;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-  gap: 2rem;
+  gap: 5px;
   align-items: center;
+`;
+
+const dotGridSumStyles = css`
+  display: inline-grid;
+  min-height: 100px;
+  min-width: 80vw;
+  grid-template-rows: auto;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  gap: 5px;
+  align-items: center;
+  border-top: 2px solid black;
+  margin-top: 20px;
 `;
 
 const dotGridContentStyles = css`
   text-align: left;
+`;
+const dotGridButtonStyles = css`
+  text-align: right;
 `;
 const dotGridTitleStyles = css`
   text-align: left;
   font-size: 1.3rem;
 `;
 const cartBoxStyles = css`
-  margin: 2rem;
+  margin: 40px 5px 20px;
 `;
 
 export default function Cart(props) {
@@ -150,9 +172,7 @@ export default function Cart(props) {
               {cartProducts.map((cartProduct) => {
                 return (
                   <div css={dotGridStyles} key={`cart-${cartProduct.id}`}>
-                    <div css={dotGridContentStyles}>
-                      {cartProduct.quantity}{' '}
-                    </div>
+                    <div>{cartProduct.quantity} </div>
                     <div css={dotGridTitleStyles}>
                       {
                         props.product.find((product) => {
@@ -170,12 +190,13 @@ export default function Cart(props) {
                       <button
                         css={buttonEffectStyle}
                         onClick={() => {
-                          const updatedItem = cartProducts.find(
+                          const newCart = cartProducts.find(
                             (product) => product.id === cartProduct.id,
                           );
-                          updatedItem.quantity += 1;
+                          newCart.quantity += 1;
                           setStringifiedCookie('cart', cartProducts);
                           setCartProducts([...cartProducts]);
+                          props.setProductInCart(cartProducts);
                         }}
                       >
                         +
@@ -183,21 +204,23 @@ export default function Cart(props) {
                       <button
                         css={buttonEffectStyle}
                         onClick={() => {
-                          const updatedItem = cartProducts.find(
+                          const newCart = cartProducts.find(
                             (product) => product.id === cartProduct.id,
                           );
-                          updatedItem.quantity -= 1;
-                          if (updatedItem.quantity < 0) {
-                            updatedItem.quantity = 0;
+                          newCart.quantity -= 1;
+                          if (newCart.quantity < 0) {
+                            newCart.quantity = 0;
                           }
                           setStringifiedCookie('cart', cartProducts);
                           setCartProducts([...cartProducts]);
+                          props.setProductInCart(cartProducts);
+                          // console.log(props.productInCart);
                         }}
                       >
                         -
                       </button>{' '}
                     </div>
-                    <div css={dotGridContentStyles}>
+                    <div css={dotGridButtonStyles}>
                       <button
                         data-test-id="cart-product-remove-<product id>"
                         css={buttonEffectStyle}
@@ -207,6 +230,7 @@ export default function Cart(props) {
                           });
                           setStringifiedCookie('cart', newCart);
                           setCartProducts(newCart);
+                          props.setProductInCart(newCart);
                         }}
                       >
                         remove
@@ -215,13 +239,19 @@ export default function Cart(props) {
                   </div>
                 );
               })}
-              <div data-test-id="cart-total">{totalQuantity}</div>
-              <div>SUM: {sum}.00 €</div>
-              <Link href="/checkout">
-                <button css={buttonBuyStyle} data-test-id="cart-checkout">
-                  check out
-                </button>
-              </Link>
+              <div css={dotGridSumStyles}>
+                <div data-test-id="cart-total">{totalQuantity}</div>
+                <div></div>
+                <div css={sumStyle}>{sum}.00 €</div>
+                <div></div>
+                <div css={dotGridButtonStyles}>
+                  <Link href="/checkout">
+                    <button css={buttonBuyStyle} data-test-id="cart-checkout">
+                      buy{' '}
+                    </button>
+                  </Link>
+                </div>
+              </div>
             </div>
           </div>
         )}

@@ -158,6 +158,7 @@ const shopFooterStyles = css`
 
 type Props = {
   product: ProductDatabase;
+  setProductInCart: any;
 };
 
 export default function Product(props: Props) {
@@ -258,14 +259,16 @@ export default function Product(props: Props) {
                       },
                     ];
                     setStringifiedCookie('cart', newCart);
+                    props.setProductInCart(newCart);
                   } else {
                     // add quantity if product is already in cart
-                    const updatedCart = currentCart.find(
+                    const newCart = currentCart.find(
                       (cookie: { id: number }) =>
                         cookie.id === props.product.id,
                     );
-                    updatedCart.quantity += Number(quantity);
+                    newCart.quantity += Number(quantity);
                     setStringifiedCookie('cart', currentCart);
+                    props.setProductInCart(currentCart);
                   }
                 }}
               >

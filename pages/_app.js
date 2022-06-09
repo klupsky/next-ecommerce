@@ -1,7 +1,18 @@
 import { css, Global } from '@emotion/react';
+import Cookies from 'js-cookie';
+import { useEffect, useState } from 'react';
 import Layout from '../components/Layout';
 
 export default function App({ Component, pageProps }) {
+  const [productInCart, setProductInCart] = useState([]);
+
+  useEffect(() => {
+    const cartProduct = Cookies.get('cart')
+      ? JSON.parse(Cookies.get('cart'))
+      : [];
+    setProductInCart(cartProduct);
+  }, []);
+
   return (
     <>
       <Global
@@ -27,8 +38,12 @@ export default function App({ Component, pageProps }) {
         `}
       />
 
-      <Layout>
-        <Component {...pageProps} />
+      <Layout productInCart={productInCart} setProductInCart={setProductInCart}>
+        <Component
+          productInCart={productInCart}
+          setProductInCart={setProductInCart}
+          {...pageProps}
+        />
       </Layout>
     </>
   );

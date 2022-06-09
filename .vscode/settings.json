@@ -1,0 +1,4 @@
+{
+  "tsErrorTranslator.showFullTranslation": true,
+  "typescript.workspaceSymbols.scope": "allOpenProjects"
+}

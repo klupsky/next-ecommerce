@@ -38,7 +38,13 @@ const empty = css`
   text-align: center;
 `;
 
-export default function Header() {
+export default function Header(props) {
+  // console.log(props.productInCart);
+  let totalQuantity = 0;
+  for (let i = 0; i < props.productInCart.length; i++) {
+    totalQuantity += props.productInCart[i].quantity;
+  }
+
   return (
     <header css={headerStyles}>
       <div>
@@ -47,7 +53,7 @@ export default function Header() {
         </Link>
       </div>
 
-      <div css={empty}>0</div>
+      <div css={empty}>{totalQuantity}</div>
     </header>
   );
 }
