@@ -2,7 +2,7 @@ import { css } from '@emotion/react';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
-import { getProducts } from '../util/products';
+import { getProducts } from '../util/database';
 
 const shopHeaderStyles = css`
   text-align: center;

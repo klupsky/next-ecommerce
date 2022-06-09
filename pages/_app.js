@@ -1,9 +1,7 @@
 import { css, Global } from '@emotion/react';
 import Layout from '../components/Layout';
-import { useState } from 'react';
 
-
-export default function App({ Component, pageProps}) {
+export default function App({ Component, pageProps }) {
   return (
     <>
       <Global

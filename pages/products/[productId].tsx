@@ -1,11 +1,13 @@
 import { css } from '@emotion/react';
 import Cookies from 'js-cookie';
+import { GetServerSidePropsContext } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 import { getParsedCookie, setStringifiedCookie } from '../../util/cookies';
-import { getProduct } from '../../util/products';
+import { getProduct } from '../../util/database';
+import { ProductDatabase } from '../../util/types';
 
 const mainStyle = css`
   text-align: center;
@@ -140,9 +142,6 @@ const buttonBoxStyles = css`
   align-items: center;
 `;
 
-
-
-
 const shopFooterStyles = css`
   text-align: center;
   justify-content: center;
@@ -157,7 +156,11 @@ const shopFooterStyles = css`
   text-align: center;
 `;
 
-export default function Product(props) {
+type Props = {
+  product: ProductDatabase;
+};
+
+export default function Product(props: Props) {
   const [quantity, setQuantity] = useState(1);
 
   if (!props.product) {
@@ -196,10 +199,9 @@ export default function Product(props) {
             />
           </div>
           <div css={descriptionBoxStyles}>
-
             <div css={productTitleStyles}>
               <h1>{props.product.name}</h1>
-           <span data-test-id="product-price">{props.product.price}</span> €
+              <span data-test-id="product-price">{props.product.price}</span> €
             </div>
             <div css={textStyle}>
               Congratulations, you made an excellent choice! This is the{' '}
@@ -220,13 +222,10 @@ export default function Product(props) {
                     css={inputStyles}
                     type="number"
                     value={quantity}
-                    steps="1"
                     min="1"
                     max="10"
                     onChange={(event) => {
-                      event.currentTarget.value > -1
-                        ? setQuantity(event.currentTarget.value)
-                        : setQuantity(0);
+                      setQuantity(Number(event.currentTarget.value));
                     }}
                   />
                 </label>
@@ -242,7 +241,8 @@ export default function Product(props) {
 
                   if (
                     !currentCart.find(
-                      (cookie) => cookie.id === props.product.id,
+                      (cookie: { id: number }) =>
+                        cookie.id === props.product.id,
                     )
                   ) {
                     // add product if cart is empty
@@ -252,18 +252,19 @@ export default function Product(props) {
                         id: props.product.id,
                         // name: props.product.name,
                         // type: props.product.type,
-                         // price: props.product.price,
+                        // price: props.product.price,
 
-                        quantity: parseInt(quantity),
+                        quantity: Number(quantity),
                       },
                     ];
                     setStringifiedCookie('cart', newCart);
                   } else {
                     // add quantity if product is already in cart
                     const updatedCart = currentCart.find(
-                      (cookie) => cookie.id === props.product.id,
+                      (cookie: { id: number }) =>
+                        cookie.id === props.product.id,
                     );
-                    updatedCart.quantity += parseInt(quantity);
+                    updatedCart.quantity += Number(quantity);
                     setStringifiedCookie('cart', currentCart);
                   }
                 }}
@@ -278,15 +279,14 @@ export default function Product(props) {
           </div>
         </div>
         <div css={shopFooterStyles}>
-
-        <Link href="/dotshop"> return to dot shopping</Link>
+          <Link href="/dotshop"> return to dot shopping</Link>
         </div>
       </main>
     </div>
   );
 }
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps(context: GetServerSidePropsContext) {
   const product = await getProduct(context.query.productId);
 
   return {

@@ -1,12 +1,6 @@
 import { css } from '@emotion/react';
 import Link from 'next/link';
 
-
-
-
-
-
-
 const headerStyles = css`
   padding: 1rem;
   display: flex;
@@ -44,25 +38,16 @@ const empty = css`
   text-align: center;
 `;
 
-export default function Header(props) {
-
-
-
-
-// console.log(props.sum)
-
+export default function Header() {
   return (
     <header css={headerStyles}>
       <div>
         <Link data-test-id="products-link" href="/dotshop">
           Dot Shop
         </Link>
-
       </div>
 
-      <div css={empty}>{props.totalQuantity}
-
-     </div>
+      <div css={empty}>0</div>
     </header>
   );
 }

@@ -4,7 +4,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { getParsedCookie, setStringifiedCookie } from '../util/cookies';
-import { getProducts } from '../util/products';
+import { getProducts } from '../util/database';
 
 const shopHeaderStyles = css`
   text-align: center;
@@ -55,7 +55,6 @@ const buttonBuyStyle = css`
   font-size: 1.3rem;
   justify-content: center;
   margin: 0.5rem 0 18px;
-
 `;
 
 const shopFooterStyles = css`
@@ -87,9 +86,6 @@ const dotGridStyles = css`
   align-items: center;
 `;
 
-
-
-
 const dotGridContentStyles = css`
   text-align: left;
 `;
@@ -98,17 +94,12 @@ const dotGridTitleStyles = css`
   font-size: 1.3rem;
 `;
 const cartBoxStyles = css`
-margin: 2rem;
+  margin: 2rem;
 `;
-
 
 export default function Cart(props) {
   const [cartProducts, setCartProducts] = useState([]);
   const [sum, setSum] = useState(0);
-
-
-
-
 
   // get cookies from cart
   useEffect(() => {
@@ -116,7 +107,7 @@ export default function Cart(props) {
     setCartProducts(currentCart);
   }, []);
   // get number of items in cart
-  const totalQuantity = 0;
+  let totalQuantity = 0;
   for (let i = 0; i < cartProducts.length; i++) {
     totalQuantity += cartProducts[i].quantity;
   }
@@ -137,7 +128,6 @@ export default function Cart(props) {
     calculateTotalSum();
   }, [cartProducts, props.product]);
 
-
   return (
     <div>
       <Head>
@@ -157,7 +147,6 @@ export default function Cart(props) {
             <h1>your cart</h1>
 
             <div css={cartBoxStyles} data-test-id="cart-product-<product id>">
-
               {cartProducts.map((cartProduct) => {
                 return (
                   <div css={dotGridStyles} key={`cart-${cartProduct.id}`}>
@@ -186,7 +175,6 @@ export default function Cart(props) {
                           );
                           updatedItem.quantity += 1;
                           setStringifiedCookie('cart', cartProducts);
-
                           setCartProducts([...cartProducts]);
                         }}
                       >
@@ -228,18 +216,18 @@ export default function Cart(props) {
                 );
               })}
               <div data-test-id="cart-total">{totalQuantity}</div>
-              <div>SUM: {sum}.00 €
+              <div>SUM: {sum}.00 €</div>
+              <Link href="/checkout">
+                <button css={buttonBuyStyle} data-test-id="cart-checkout">
+                  check out
+                </button>
+              </Link>
             </div>
-            <Link href="/checkout">
-              <button css={buttonBuyStyle} data-test-id="cart-checkout">
-                check out
-              </button>
-            </Link>
-          </div></div>
+          </div>
         )}
       </div>
       <div css={shopFooterStyles} data-test-id="cart-checkout">
-      <Link href="/dotshop"> return to dot shopping</Link>
+        <Link href="/dotshop"> return to dot shopping</Link>
       </div>
     </div>
   );

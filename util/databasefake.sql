@@ -4,7 +4,7 @@
 -- install & import dotenv-safe
 -- make .env and add to gitignore
 -- log in postgres:
-psql -U next_ecommerce;
+psql -U next_ecommerce next_ecommerce;
 
 
 
