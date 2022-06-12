@@ -1,6 +1,7 @@
 import { css } from '@emotion/react';
 import Cookies from 'js-cookie';
 import Head from 'next/head';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { getParsedCookie, setStringifiedCookie } from '../util/cookies';
@@ -15,7 +16,6 @@ const shopHeaderStyles = css`
   border-radius: 50px;
   border: 2px solid #000000;
   margin: 20px 20px;
-  text-align: center;
   h1 {
     font-size: 1.7rem;
     font-weight: normal;
@@ -31,10 +31,12 @@ const buttonEffectStyle = css`
   height: 60px;
   min-width: 60px;
   margin: 5px;
+
   padding: 8px;
   font-size: 1.3rem;
   justify-content: center;
   text-align: center;
+
   :hover {
     background-color: #000000;
     border: 2px solid #000000;
@@ -55,6 +57,17 @@ const buttonBuyStyle = css`
   font-size: 1.3rem;
   justify-content: center;
   margin: 5px 0 0px;
+  transition-duration: 0.3s;
+  transition-property: transform;
+
+  :hover,
+  :focus,
+  :active {
+    transform: scale(1.1);
+    background-color: #000000;
+    border: 2px solid #000000;
+    color: #f6f5f1;
+  }
 `;
 
 const shopFooterStyles = css`
@@ -72,7 +85,7 @@ const shopFooterStyles = css`
 `;
 
 const productBoxStyles = css`
-  width: 100%;
+  min-width: 80%;
   justify-content: center;
   align-items: center;
 `;
@@ -86,19 +99,20 @@ const sumStyle = css`
 
 const dotGridStyles = css`
   display: inline-grid;
-  min-width: 80vw;
+  min-width: 100%;
   grid-template-rows: auto;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
   gap: 5px;
   align-items: center;
+  margin-right: 10px;
 `;
 
 const dotGridSumStyles = css`
   display: inline-grid;
   min-height: 100px;
-  min-width: 80vw;
+  min-width: 100%;
   grid-template-rows: auto;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
   gap: 5px;
   align-items: center;
   border-top: 2px solid black;
@@ -116,26 +130,26 @@ const dotGridTitleStyles = css`
   font-size: 1.3rem;
 `;
 const cartBoxStyles = css`
-  margin: 40px 5px 20px;
+  margin: 40px 50px 20px;
 `;
 
 export default function Cart(props) {
   const [cartProducts, setCartProducts] = useState([]);
   const [sum, setSum] = useState(0);
 
-  // get cookies from cart
+  // get the cookies and store them inside currentCart
   useEffect(() => {
     const currentCart = Cookies.get('cart') ? getParsedCookie('cart') : [];
     setCartProducts(currentCart);
   }, []);
-  // get number of items in cart
+
+  // run over cookies in cart and calculate the quantity
   let totalQuantity = 0;
   for (let i = 0; i < cartProducts.length; i++) {
     totalQuantity += cartProducts[i].quantity;
   }
 
   // calculate sum
-
   useEffect(() => {
     function calculateTotalSum() {
       let total = 0;
@@ -172,7 +186,17 @@ export default function Cart(props) {
               {cartProducts.map((cartProduct) => {
                 return (
                   <div css={dotGridStyles} key={`cart-${cartProduct.id}`}>
-                    <div>{cartProduct.quantity} </div>
+                    <div data-test-id="cart-product-quantity-<product id>">
+                      {cartProduct.quantity}{' '}
+                    </div>
+                    <div css={dotGridTitleStyles}>
+                      <Image
+                        data-test-id="product-image"
+                        src={`/images/${cartProduct.id}.svg`}
+                        width="70"
+                        height="70"
+                      />
+                    </div>
                     <div css={dotGridTitleStyles}>
                       {
                         props.product.find((product) => {
@@ -196,6 +220,8 @@ export default function Cart(props) {
                           newCart.quantity += 1;
                           setStringifiedCookie('cart', cartProducts);
                           setCartProducts([...cartProducts]);
+                          // sets the setState in app.js
+
                           props.setProductInCart(cartProducts);
                         }}
                       >
@@ -213,6 +239,8 @@ export default function Cart(props) {
                           }
                           setStringifiedCookie('cart', cartProducts);
                           setCartProducts([...cartProducts]);
+                          // sets the setState in app.js
+
                           props.setProductInCart(cartProducts);
                           // console.log(props.productInCart);
                         }}
@@ -230,6 +258,8 @@ export default function Cart(props) {
                           });
                           setStringifiedCookie('cart', newCart);
                           setCartProducts(newCart);
+                          // sets the setState in app.js
+
                           props.setProductInCart(newCart);
                         }}
                       >
@@ -241,9 +271,12 @@ export default function Cart(props) {
               })}
               <div css={dotGridSumStyles}>
                 <div data-test-id="cart-total">{totalQuantity}</div>
-                <div></div>
-                <div css={sumStyle}>{sum}.00 €</div>
-                <div></div>
+                <div />
+                <div data-test-id="cart-total" css={sumStyle}>
+                  <span data-test-id="cart-total">{sum}</span>.00 €
+                </div>
+                <div />
+                <div />
                 <div css={dotGridButtonStyles}>
                   <Link href="/checkout">
                     <button css={buttonBuyStyle} data-test-id="cart-checkout">
@@ -257,7 +290,7 @@ export default function Cart(props) {
         )}
       </div>
       <div css={shopFooterStyles} data-test-id="cart-checkout">
-        <Link href="/dotshop"> return to dot shopping</Link>
+        <Link href="/"> return to dot shop</Link>
       </div>
     </div>
   );

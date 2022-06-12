@@ -18,7 +18,7 @@ export default function Home() {
       </Head>
 
       <main css={mainStyle}>
-        you got lost! <Link href="/dotshop">return to the dot shop.</Link>
+        you got lost! <Link href="/">return to the dot shop.</Link>
       </main>
     </div>
   );

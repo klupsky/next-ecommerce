@@ -9,15 +9,9 @@ import { getParsedCookie, setStringifiedCookie } from '../../util/cookies';
 import { getProduct } from '../../util/database';
 import { ProductDatabase } from '../../util/types';
 
-const mainStyle = css`
-  text-align: center;
-  align-content: center;
-  margin-top: 3rem;
-`;
-
 const labelStyles = css`
   font-size: 1.2rem;
-  margin: 0 0.2rem 0;
+  margin: 0 5px 0;
 `;
 
 const inputStyles = css`
@@ -52,6 +46,14 @@ const textStyle = css`
 
 const imageStyles = css`
   margin: 0px;
+  transition-duration: 0.3s;
+  transition-property: transform;
+
+  :hover,
+  :focus,
+  :active {
+    transform: scale(1.07);
+  }
 `;
 
 const productTitleStyles = css`
@@ -94,6 +96,23 @@ const buttonBuyStyle = css`
   font-size: 1.3rem;
   justify-content: center;
   margin: 0.5rem;
+  transition-duration: 0.3s;
+  transition-property: transform;
+
+  :hover,
+  :focus,
+  :active {
+    transform: scale(1.1);
+  }
+`;
+
+const buttonGrid = css`
+  display: inline-grid;
+  min-width: 30%;
+  grid-template-rows: auto;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  align-items: center;
 `;
 
 const buttonNoEffectStyle = css`
@@ -120,11 +139,19 @@ const buttonEffectStyle = css`
   border: 2px solid #000000;
   height: 60px;
   min-width: 60px;
-  padding: 10px;
+  padding: 3px;
   font-size: 1.3rem;
   justify-content: center;
   text-align: center;
-  :hover {
+  margin-left: 10px;
+
+  transition-duration: 0.3s;
+  transition-property: transform;
+
+  :hover,
+  :focus,
+  :active {
+    transform: scale(1.1);
     background-color: #000000;
     border: 2px solid #000000;
     color: #f6f5f1;
@@ -164,19 +191,19 @@ type Props = {
 export default function Product(props: Props) {
   const [quantity, setQuantity] = useState(1);
 
-  if (!props.product) {
-    return (
-      <div css={mainStyle}>
-        <Head>
-          <title>sorry no dot for you</title>
-          <meta name="description" content="dot shop error message." />
-          <link rel="icon" href="/dot.svg" />
-        </Head>
-        you got lost!
-        <Link href="/dotshop">return to the dot shop. </Link>
-      </div>
-    );
-  }
+  // if (!props.product) {
+  //   return (
+  //     <div>
+  //       <Head>
+  //         <title>sorry no dot for you</title>
+  //         <meta name="description" content="dot shop error message." />
+  //         <link rel="icon" href="/dot.svg" />
+  //       </Head>
+  //       you got lost!
+  //       <Link href="/">return to the dot shop. </Link>
+  //     </div>
+  //   );
+  // }
 
   return (
     <div>
@@ -215,74 +242,79 @@ export default function Product(props: Props) {
               <br />
             </div>
             <div css={buttonBoxStyles}>
-              <div css={buttonNoEffectStyle}>
-                <label css={labelStyles}>
-                  quantity:
-                  <input
-                    data-test-id="product-quantity"
-                    css={inputStyles}
-                    type="number"
-                    value={quantity}
-                    min="1"
-                    max="10"
-                    onChange={(event) => {
-                      setQuantity(Number(event.currentTarget.value));
-                    }}
-                  />
-                </label>
+              <div css={buttonGrid}>
+                <div css={buttonNoEffectStyle}>
+                  <label css={labelStyles}>
+                    quantity:
+                    <input
+                      data-test-id="product-quantity"
+                      css={inputStyles}
+                      type="number"
+                      value={quantity}
+                      min="1"
+                      max="10"
+                      onChange={(event) => {
+                        setQuantity(Number(event.currentTarget.value));
+                      }}
+                    />
+                  </label>
+                </div>
+
+                <button
+                  data-test-id="product-add-to-cart"
+                  css={buttonEffectStyle}
+                  onClick={() => {
+                    const currentCart = Cookies.get('cart')
+                      ? getParsedCookie('cart')
+                      : [];
+
+                    if (
+                      !currentCart.find(
+                        (cookie: { id: number }) =>
+                          cookie.id === props.product.id,
+                      )
+                    ) {
+                      // add product if cart is empty
+                      const newCart = [
+                        ...currentCart,
+                        {
+                          id: props.product.id,
+                          // name: props.product.name,
+                          // type: props.product.type,
+                          // price: props.product.price,
+
+                          quantity: Number(quantity),
+                        },
+                      ];
+                      setStringifiedCookie('cart', newCart);
+                      // sets the setState in app.js
+
+                      props.setProductInCart(newCart);
+                    } else {
+                      // add quantity if product is already in cart
+                      const newCart = currentCart.find(
+                        (cookie: { id: number }) =>
+                          cookie.id === props.product.id,
+                      );
+                      newCart.quantity += Number(quantity);
+                      setStringifiedCookie('cart', currentCart);
+                      // sets the setState in app.js
+                      props.setProductInCart(currentCart);
+                    }
+                  }}
+                >
+                  add to cart
+                </button>
               </div>
 
-              <button
-                data-test-id="product-add-to-cart"
-                css={buttonEffectStyle}
-                onClick={() => {
-                  const currentCart = Cookies.get('cart')
-                    ? getParsedCookie('cart')
-                    : [];
-
-                  if (
-                    !currentCart.find(
-                      (cookie: { id: number }) =>
-                        cookie.id === props.product.id,
-                    )
-                  ) {
-                    // add product if cart is empty
-                    const newCart = [
-                      ...currentCart,
-                      {
-                        id: props.product.id,
-                        // name: props.product.name,
-                        // type: props.product.type,
-                        // price: props.product.price,
-
-                        quantity: Number(quantity),
-                      },
-                    ];
-                    setStringifiedCookie('cart', newCart);
-                    props.setProductInCart(newCart);
-                  } else {
-                    // add quantity if product is already in cart
-                    const newCart = currentCart.find(
-                      (cookie: { id: number }) =>
-                        cookie.id === props.product.id,
-                    );
-                    newCart.quantity += Number(quantity);
-                    setStringifiedCookie('cart', currentCart);
-                    props.setProductInCart(currentCart);
-                  }
-                }}
-              >
-                add to cart
-              </button>
-
               <Link href="../../cart">
-                <button css={buttonBuyStyle}>buy now</button>
+                <button css={buttonBuyStyle}>buy</button>
               </Link>
             </div>
           </div>
         </div>
         <div css={shopFooterStyles}>
-          <Link href="/dotshop"> return to dot shopping</Link>
+          <Link href="/"> return to dot shop</Link>
         </div>
       </main>
     </div>

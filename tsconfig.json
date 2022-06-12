@@ -30,7 +30,8 @@
     "**/*.jsx",
     "**/*.cjs",
     "**/*.mjs",
-    "util/cookies.ts"
+    "util/cookies.ts",
+    "components/Layout.tx"
   ],
   "exclude": ["node_modules", "build"]
 }

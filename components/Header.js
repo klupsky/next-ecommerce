@@ -23,7 +23,7 @@ const headerStyles = css`
   }
 `;
 
-const empty = css`
+const cartStyles = css`
   color: #000000;
   background-color: transparent;
   border-radius: 50px;
@@ -40,6 +40,7 @@ const empty = css`
 
 export default function Header(props) {
   // console.log(props.productInCart);
+  // run over cookies in cart and calculate the number
   let totalQuantity = 0;
   for (let i = 0; i < props.productInCart.length; i++) {
     totalQuantity += props.productInCart[i].quantity;
@@ -48,12 +49,18 @@ export default function Header(props) {
   return (
     <header css={headerStyles}>
       <div>
-        <Link data-test-id="products-link" href="/dotshop">
-          Dot Shop
+        <Link data-test-id="products-link" href="/">
+          dot shop
         </Link>
       </div>
-
-      <div css={empty}>{totalQuantity}</div>
+      <div>
+        <Link data-test-id="cart-link" href="/cart">
+          <div css={cartStyles} data-test-id="cart-count">
+            {' '}
+            {totalQuantity}
+          </div>
+        </Link>{' '}
+      </div>
     </header>
   );
 }
