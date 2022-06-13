@@ -1,8 +1,35 @@
 import { css } from '@emotion/react';
+import Cookies from 'js-cookie';
 import Head from 'next/head';
+import Image from 'next/image';
 import Link from 'next/link';
-import { setStringifiedCookie } from '../util/cookies';
+import { useEffect, useState } from 'react';
+import { getParsedCookie, setStringifiedCookie } from '../util/cookies';
 import { getProducts } from '../util/database';
+
+const priceBoxStyle = css`
+  align-items: flex-end;
+  display: flex;
+  margin: 20px 0px 40px;
+  justify-content: space-between;
+`;
+const priceStyle = css`
+  text-align: right;
+  align-items: flex-end;
+`;
+
+const cartBoxStyle = css`
+  align-items: center;
+  display: flex;
+  margin: 40px 0px 40px;
+  justify-content: center;
+`;
+
+const productStyle = css`
+  align-items: center;
+  margin: 0px 40px 0px;
+  justify-content: center;
+`;
 
 const shopFooterStyles = css`
   text-align: center;
@@ -71,6 +98,27 @@ const formContainerStyle = css`
   display: flex;
   margin: 0 20% 0;
 `;
+const sumStyle = css`
+  align-items: flex-end;
+
+  font-size: 1.3rem;
+  text-decoration: underline;
+  text-underline-position: under;
+`;
+
+const containerHeadStyle = css`
+  text-align: center;
+
+  margin: 60px 20% 20px;
+`;
+
+const containerStyle = css`
+  text-align: center;
+
+  margin: 40px 20% 20px;
+
+  border-bottom: 2px solid black;
+`;
 
 const formOuterStyles = css`
   display: flex;
@@ -111,6 +159,36 @@ export default function Checkout(props) {
   //     props.setCartCounter(0);
   //   });
 
+  const [cartProducts, setCartProducts] = useState([]);
+  const [sum, setSum] = useState(0);
+
+  // get the cookies and store them inside currentCart
+  useEffect(() => {
+    const currentCart = Cookies.get('cart') ? getParsedCookie('cart') : [];
+    setCartProducts(currentCart);
+  }, []);
+
+  // run over cookies in cart and calculate the quantity
+  let totalQuantity = 0;
+  for (let i = 0; i < cartProducts.length; i++) {
+    totalQuantity += cartProducts[i].quantity;
+  }
+
+  // calculate sum
+  useEffect(() => {
+    function calculateTotalSum() {
+      let total = 0;
+      cartProducts.map((cartProduct) => {
+        return (total +=
+          props.product.find((product) => {
+            return cartProduct.id === product.id;
+          }).price * cartProduct.quantity);
+      });
+      setSum(total);
+    }
+    calculateTotalSum();
+  }, [cartProducts, props.product]);
+
   return (
     <div>
       <Head>
@@ -123,6 +201,43 @@ export default function Checkout(props) {
       </Head>
       <main css={shopMainStyles}>
         <h1>check out</h1>
+        <div css={containerStyle}>
+          <div css={cartBoxStyle}>
+            {cartProducts.map((cartProduct) => {
+              return (
+                <div key={`cart-${cartProduct.id}`}>
+                  <div css={productStyle}>
+                    <Image
+                      data-test-id="product-image"
+                      src={`/images/${cartProduct.id}.svg`}
+                      width="70"
+                      height="70"
+                    />
+                    <br />
+                    {cartProduct.quantity} x{' '}
+                    {
+                      props.product.find((product) => {
+                        return cartProduct.id === product.id;
+                      }).name
+                    }
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          <div css={priceBoxStyle}>
+            <div>your cart contains {totalQuantity} dots </div>
+            <div css={priceStyle}>
+              total price: <span css={sumStyle}>{sum}.00 €</span>
+            </div>{' '}
+          </div>
+        </div>
+        <div css={containerHeadStyle}>
+          please submit your costumer information:
+        </div>
+
+        <br />
         <div css={formContainerStyle}>
           <form>
             <ul css={formOuterStyles}>
