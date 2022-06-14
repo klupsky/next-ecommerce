@@ -31,7 +31,8 @@
     "**/*.cjs",
     "**/*.mjs",
     "util/cookies.ts",
-    "components/Layout.tx"
+    "components/Layout.tx",
+    "util/__tests__/sum.test.js"
   ],
   "exclude": ["node_modules", "build"]
 }

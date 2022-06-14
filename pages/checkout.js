@@ -4,7 +4,11 @@ import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { getParsedCookie, setStringifiedCookie } from '../util/cookies';
+import {
+  deleteCookie,
+  getParsedCookie,
+  setStringifiedCookie,
+} from '../util/cookies';
 import { getProducts } from '../util/database';
 
 const priceBoxStyle = css`
@@ -330,7 +334,7 @@ export default function Checkout(props) {
                   css={buttonBuyStyle}
                   data-test-id="checkout-confirm-order"
                   onClick={() => {
-                    setStringifiedCookie('cart', []);
+                    deleteCookie('cart');
 
                     props.setProductInCart([]);
                   }}

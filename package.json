@@ -7,14 +7,18 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "migrate": "dotenv ley"
+    "migrate": "dotenv ley",
+    "test": "jest",
+    "heroku-postbuild": "yarn migrate up && yarn build"
   },
   "dependencies": {
     "@emotion/react": "^11.9.0",
     "camelcase-keys": "^7.0.2",
     "dotenv-safe": "^8.2.0",
+    "dt": "^0.0.1",
     "js-cookie": "^3.0.1",
     "next": "12.1.6",
+    "pg-connection-string": "^2.5.0",
     "postgres": "^3.2.4",
     "react": "18.1.0",
     "react-dom": "18.1.0",
@@ -51,7 +55,7 @@
     "eslint-plugin-testing-library": "5.3.1",
     "eslint-plugin-unicorn": "42.0.0",
     "jest": "^28.1.1",
-    "jets": "^0.14.1",
+    "jest-environment-jsdom": "^28.1.1",
     "ley": "^0.7.1",
     "typescript": "4.6.4"
   },
@@ -63,5 +67,8 @@
     "eslint-plugin-react": "7.29.4",
     "eslint-plugin-react-hooks": "4.5.0",
     "@typescript-eslint/utils": "5.22.0"
-  }
+  },
+  "cacheDirectories": [
+    ".next/cache"
+  ]
 }
