@@ -13,6 +13,8 @@
   },
   "dependencies": {
     "@emotion/react": "^11.9.0",
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "^13.3.0",
     "camelcase-keys": "^7.0.2",
     "dotenv-safe": "^8.2.0",
     "dt": "^0.0.1",
@@ -57,6 +59,7 @@
     "jest": "^28.1.1",
     "jest-environment-jsdom": "^28.1.1",
     "ley": "^0.7.1",
+    "playwright": "^1.22.2",
     "typescript": "4.6.4"
   },
   "resolutions": {

@@ -164,6 +164,8 @@ export default function Cart(props) {
     calculateTotalSum();
   }, [cartProducts, props.product]);
 
+  console.log(props.product);
+
   return (
     <div>
       <Head>
