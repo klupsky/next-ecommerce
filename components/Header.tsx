@@ -38,7 +38,15 @@ const cartStyles = css`
   text-align: center;
 `;
 
-export default function Header(props) {
+// Props is an Array of objects -> that's why "[]"
+type Props = {
+  productInCart: {
+    id: number;
+    quantity: number;
+  }[];
+};
+
+export default function Header(props: Props) {
   // console.log(props.productInCart);
   // run over cookies in cart and calculate the number
   let totalQuantity = 0;

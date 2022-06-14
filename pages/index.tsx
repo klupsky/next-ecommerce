@@ -95,7 +95,17 @@ const productStyles = css`
   flex-wrap: wrap;
 `;
 
-export default function Home(props) {
+type Props = {
+  products: {
+    id: number;
+    name: string;
+    price: number;
+    type: string;
+    color: string;
+  }[];
+};
+
+export default function Home(props: Props) {
   return (
     <div>
       <Head>

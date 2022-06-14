@@ -4,11 +4,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import {
-  deleteCookie,
-  getParsedCookie,
-  setStringifiedCookie,
-} from '../util/cookies';
+import { deleteCookie, getParsedCookie } from '../util/cookies';
 import { getProducts } from '../util/database';
 
 const priceBoxStyle = css`
