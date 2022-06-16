@@ -226,9 +226,8 @@ export default function Product(props: Props) {
           <div css={descriptionBoxStyles}>
             <div css={productTitleStyles}>
               <h1>{props.product.name}</h1>
-              <span data-test-id="product-price">{props.product.price}</span> €
             </div>
-
+            <div data-test-id="product-price">{props.product.price}</div>
             <div css={textStyle}>
               Congratulations, you made an excellent choice! This is the{' '}
               <span style={{ color: props.product.color }}>
