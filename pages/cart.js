@@ -190,15 +190,14 @@ export default function Cart(props) {
             >
               {cartProducts.map((cartProduct) => {
                 return (
-                  <div css={dotGridStyles} key={`cart-${cartProduct.id}`}>
+                  <div
+                    css={dotGridStyles}
+                    key={`cart-${cartProduct.id}`}
+                    data-test-id={`cart-product-${cartProduct.id}`}
+                  >
                     <div>
-                      <span
-                        data-test-id={`cart-product-quantity-${cartProduct.id}`}
-                      >
-                        {' '}
-                        {cartProduct.quantity}
-                      </span>{' '}
-                      x
+                      data-test-id={`cart-product-quantity-${cartProduct.id}`}
+                      {cartProduct.quantity}x
                     </div>
                     <div css={dotGridTitleStyles}>
                       <Image
