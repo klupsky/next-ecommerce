@@ -120,19 +120,21 @@ export default function Home(props: Props) {
         <h1>shop a dot</h1>
       </div>
 
-      <div data-test-id="product-<product id>" css={productStyles}>
+      <div css={productStyles}>
         {props.products.map((product) => {
           return (
             <div key={`product-${product.id}`}>
               <div>
                 <Link href={`/products/${product.id}`}>
                   <div>
-                    <Image
-                      src={`/images/${product.id}.svg`}
-                      width="300"
-                      height="300"
-                      css={imageStyles}
-                    />
+                    <a data-test-id={`product-${product.id}`}>
+                      <Image
+                        src={`/images/${product.id}.svg`}
+                        width="300"
+                        height="300"
+                        css={imageStyles}
+                      />
+                    </a>
                   </div>
                 </Link>
 
