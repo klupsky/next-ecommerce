@@ -191,8 +191,9 @@ export default function Cart(props) {
                     <div>
                       <span data-test-id="cart-product-quantity-<product id>">
                         {' '}
-                        {cartProduct.quantity} x
-                      </span>
+                        {cartProduct.quantity}
+                      </span>{' '}
+                      x
                     </div>
                     <div css={dotGridTitleStyles}>
                       <Image

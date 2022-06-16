@@ -31,9 +31,9 @@ test('navigation test', async ({ page }) => {
 });
 
 // check if amount is the same like in counter
-const cartItemAmountLocator = page.locator(
+const cartProductQuantityLocator = page.locator(
   'data-test-id=cart-product-quantity-1',
 );
-await expect(cartItemAmountLocator).toHaveValue('2');
+await expect(cartProductQuantityLocator).toHaveValue('2');
 
 // PWDEBUG=1 yarn playwright test
