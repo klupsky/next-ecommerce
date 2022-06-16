@@ -11,7 +11,7 @@ this is a full-stack application, that simulates an online webstore, including a
 
 ## Technologies used
 
-**Client:** Next.js, React, TypeScript, Styled Components, Jest
+**Client:** Next.js, React, TypeScript, Jest, Paywright
 
 **Server:** Node.js, PostgreSQL
 
