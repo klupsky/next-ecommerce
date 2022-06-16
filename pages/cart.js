@@ -278,19 +278,15 @@ export default function Cart(props) {
               <div css={dotGridSumStyles}>
                 <div data-test-id="cart-total">{totalQuantity} x</div>
                 <div />
-                <div data-test-id="cart-total" css={sumStyle}>
+                <div css={sumStyle}>
                   <span data-test-id="cart-total">{sum}</span>.00 €
                 </div>
                 <div />
                 <div />
                 <div css={dotGridButtonStyles}>
                   <Link href="/checkout">
-                    <button
-                      href="/checkout"
-                      css={buttonBuyStyle}
-                      data-test-id="cart-checkout"
-                    >
-                      buy{' '}
+                    <button data-test-id="cart-checkout" css={buttonBuyStyle}>
+                      buy
                     </button>
                   </Link>
                 </div>
@@ -299,7 +295,7 @@ export default function Cart(props) {
           </div>
         )}
       </div>
-      <div css={shopFooterStyles} data-test-id="cart-checkout">
+      <div css={shopFooterStyles}>
         <Link href="/"> return to dot shop</Link>
       </div>
     </div>

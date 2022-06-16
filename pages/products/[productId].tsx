@@ -307,7 +307,7 @@ export default function Product(props: Props) {
                 </button>
               </div>
 
-              <Link href="../../cart">
+              <Link href="/../../cart">
                 <button css={buttonBuyStyle}>buy</button>
               </Link>
             </div>

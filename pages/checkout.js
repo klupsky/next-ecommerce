@@ -303,10 +303,10 @@ export default function Checkout(props) {
                 <label>
                   <span>expiration date:</span>
                   <input
-                    data-test-id="checkout-security-code"
-                    type="number"
+                    data-test-id="checkout-expiration-date"
                     placeholder="mm/yyyy"
-                    maxLength={6}
+                    type="number"
+                    maxLength={12}
                     required
                   />
                 </label>
