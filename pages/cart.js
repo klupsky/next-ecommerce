@@ -184,10 +184,7 @@ export default function Cart(props) {
           <div css={productBoxStyles}>
             <h1>your cart</h1>
 
-            <div
-              css={cartBoxStyles}
-              data-test-id={`cart-product-${cartProduct.id}`}
-            >
+            <div css={cartBoxStyles}>
               {cartProducts.map((cartProduct) => {
                 return (
                   <div
