@@ -184,12 +184,17 @@ export default function Cart(props) {
           <div css={productBoxStyles}>
             <h1>your cart</h1>
 
-            <div css={cartBoxStyles} data-test-id="cart-product-<product id>">
+            <div
+              css={cartBoxStyles}
+              data-test-id={`cart-product-${cartProduct.id}`}
+            >
               {cartProducts.map((cartProduct) => {
                 return (
                   <div css={dotGridStyles} key={`cart-${cartProduct.id}`}>
                     <div>
-                      <span data-test-id="cart-product-quantity-<product id>">
+                      <span
+                        data-test-id={`cart-product-quantity-${cartProduct.id}`}
+                      >
                         {' '}
                         {cartProduct.quantity}
                       </span>{' '}
@@ -256,7 +261,7 @@ export default function Cart(props) {
                     </div>
                     <div css={dotGridButtonStyles}>
                       <button
-                        data-test-id="cart-product-remove-<product id>"
+                        data-test-id={`cart-product-remove-${cartProduct.id}`}
                         css={buttonEffectStyle}
                         onClick={() => {
                           const newCart = cartProducts.filter((product) => {
