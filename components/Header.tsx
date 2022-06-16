@@ -58,14 +58,14 @@ export default function Header(props: Props) {
     <header css={headerStyles}>
       <div>
         <Link href="/">
-          <span data-test-id="products-link">dot shop</span>
+          <a data-test-id="products-link">dot shop</a>
         </Link>
       </div>
       <div>
         <Link href="/cart">
           <div data-test-id="cart-link" css={cartStyles}>
             {' '}
-            <span data-test-id="cart-count">{totalQuantity}</span>
+            <a data-test-id="cart-count">{totalQuantity}</a>
           </div>
         </Link>{' '}
       </div>
