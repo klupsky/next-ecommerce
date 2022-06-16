@@ -126,23 +126,19 @@ export default function Home(props: Props) {
             <div key={`product-${product.id}`}>
               <div>
                 <Link href={`/products/${product.id}`}>
-                  <div>
-                    <a data-test-id={`product-${product.id}`}>
+                  <a data-test-id={`product-${product.id}`}>
+                    <div>
                       <Image
                         src={`/images/${product.id}.svg`}
                         width="300"
                         height="300"
                         css={imageStyles}
                       />
-                    </a>
-                  </div>
+                    </div>
+                    <div css={nameTagStyles}>{product.name}</div>
+                    <div css={priceTagStyles}>{product.price} €</div>{' '}
+                  </a>
                 </Link>
-
-                <Link href={`/products/${product.id}`}>
-                  <div css={nameTagStyles}>{product.name}</div>
-                </Link>
-
-                <div css={priceTagStyles}>{product.price} €</div>
               </div>
             </div>
           );
