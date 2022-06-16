@@ -28,12 +28,18 @@ test('navigation test', async ({ page }) => {
   const goToCartButtonLocator = page.locator('data-test-id=cart-count');
   await goToCartButtonLocator.click();
   await expect(page).toHaveURL(`${baseUrl}cart`);
-});
 
-// check if amount is the same like in counter
-const cartProductQuantityLocator = page.locator(
-  'data-test-id=cart-product-quantity-1',
-);
-await expect(cartProductQuantityLocator).toHaveValue('2');
+  // check counter again
+  await expect(headerCounterLocator).toHaveText('2');
+
+  // click on remove button
+  const removeButtonLocator = page.locator(
+    '[data-test-id^="cart-product-remove-"]',
+  );
+  await removeButtonLocator.click();
+
+  // check counter again
+  await expect(headerCounterLocator).toHaveText('0');
+});
 
 // PWDEBUG=1 yarn playwright test

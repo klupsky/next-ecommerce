@@ -285,7 +285,11 @@ export default function Cart(props) {
                 <div />
                 <div css={dotGridButtonStyles}>
                   <Link href="/checkout">
-                    <button css={buttonBuyStyle} data-test-id="cart-checkout">
+                    <button
+                      href="/checkout"
+                      css={buttonBuyStyle}
+                      data-test-id="cart-checkout"
+                    >
                       buy{' '}
                     </button>
                   </Link>
