@@ -13,7 +13,7 @@ export default function Home() {
     <div>
       <Head>
         <title>Dot Shop 404</title>
-        <meta nname="description" content="page not found" />
+        <meta name="description" content="page not found" />
         <link rel="icon" href="/dot.svg" />
       </Head>
 
