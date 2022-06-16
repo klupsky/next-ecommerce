@@ -171,7 +171,7 @@ export default function Cart(props) {
       <Head>
         <title>Dot Shop</title>
         <meta
-          name="Dot Shopping Cart"
+          name="description"
           content="see what's inside your dot shopping cart"
         />
         <link rel="icon" href="/dot.svg" />

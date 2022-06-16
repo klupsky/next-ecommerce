@@ -194,7 +194,7 @@ export default function Checkout(props) {
       <Head>
         <title>check out</title>
         <meta
-          name="dot shop checkout"
+          name="description"
           content="submit your information for checkout"
         />
         <link rel="icon" href="/dot.svg" />
