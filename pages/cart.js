@@ -195,9 +195,10 @@ export default function Cart(props) {
                     key={`cart-${cartProduct.id}`}
                     data-test-id={`cart-product-${cartProduct.id}`}
                   >
-                    <div>
+                    <div
                       data-test-id={`cart-product-quantity-${cartProduct.id}`}
-                      {cartProduct.quantity}x
+                    >
+                      {cartProduct.quantity} x
                     </div>
                     <div css={dotGridTitleStyles}>
                       <Image
