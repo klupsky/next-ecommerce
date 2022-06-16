@@ -211,10 +211,7 @@ export default function Product(props: Props) {
         <title>
           {props.product.name}, the {props.product.type}
         </title>
-        <meta
-          name="description"
-          content={`${props.product.name} is a ${props.product.type} dot`}
-        />
+        <meta name="description" content={props.product.name} />
       </Head>
       <main>
         <div css={boxStyles}>
@@ -229,7 +226,7 @@ export default function Product(props: Props) {
           <div css={descriptionBoxStyles}>
             <div css={productTitleStyles}>
               <h1>{props.product.name}</h1>
-              <span data-test-id="product-price">{props.product.price}</span> €
+              <a data-test-id="product-price">{props.product.price}</a> €
             </div>
             <div css={textStyle}>
               Congratulations, you made an excellent choice! This is the{' '}
