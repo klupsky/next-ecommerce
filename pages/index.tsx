@@ -110,7 +110,10 @@ export default function Home(props: Props) {
     <div>
       <Head>
         <title>Dot Shop</title>
-        <meta name="Dot Shop" content="shop a dot" />
+        <meta
+          name="description"
+          content="dot shop ecommerce store for upleveled"
+        />
         <link rel="icon" href="/dot.svg" />
       </Head>
       <div css={shopHeaderStyles}>
