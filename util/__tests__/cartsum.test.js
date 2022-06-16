@@ -1,42 +1,22 @@
-function testTotalSum(cartProducts) {
-
+function calculateTotalSum(cartArray, databaseProducts) {
   let total = 0;
-  cartProducts.map((cartProduct) => {
+  cartArray.map((cartProduct) => {
     return (total +=
-      props.product.find((product) => {
+      databaseProducts.find((product) => {
         return cartProduct.id === product.id;
       }).price * cartProduct.quantity);
   });
   return total;
 }
 
-calculate sum
-useEffect(() => {
-  function calculateTotalSum() {
-    let total = 0;
-    cartProducts.map((cartProduct) => {
-      return (total +=
-        props.product.find((product) => {
-          return cartProduct.id === product.id;
-        }).price * cartProduct.quantity);
-    });
-    setSum(total);
-  }
-  calculateTotalSum();
-}, [cartProducts, props.product]);
+test('calculate total sum', () => {
+  const cartProductA = { id: 1, quantity: 1 };
+  const cartProductB = { id: 2, quantity: 1 };
 
-test('updating quantity in item of cookie', () => {
-  const cartProducts = [
-    {
-      id: 1,
-      quantity: 1,
-    },
-    {
-      id: 2,
-
-      quantity: 2,
-    },
+  const dataArray = [
+    { id: 1, price: 1 },
+    { id: 2, price: 2 },
   ];
-  // 1. Set the cookie value and test that the value was updated
-  expect(checkCartSum(combinedData)).toBe(95);
+
+  expect(calculateTotalSum([cartProductA, cartProductB], dataArray)).toBe(3);
 });

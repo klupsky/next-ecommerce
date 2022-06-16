@@ -13,11 +13,8 @@
   },
   "dependencies": {
     "@emotion/react": "^11.9.0",
-    "@testing-library/jest-dom": "^5.16.4",
-    "@testing-library/react": "^13.3.0",
     "camelcase-keys": "^7.0.2",
     "dotenv-safe": "^8.2.0",
-    "dt": "^0.0.1",
     "js-cookie": "^3.0.1",
     "next": "12.1.6",
     "pg-connection-string": "^2.5.0",
@@ -29,6 +26,7 @@
   "devDependencies": {
     "@babel/eslint-parser": "7.17.0",
     "@next/eslint-plugin-next": "12.1.6",
+    "@playwright/test": "^1.22.2",
     "@types/dotenv-safe": "^8.1.2",
     "@types/jest": "^28.1.1",
     "@types/js-cookie": "^3.0.2",

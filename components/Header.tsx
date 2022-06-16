@@ -63,7 +63,7 @@ export default function Header(props: Props) {
       </div>
       <div>
         <Link data-test-id="cart-link" href="/cart">
-          <div css={cartStyles} data-test-id="cart-count">
+          <div data-test-id="cart-count" css={cartStyles}>
             {' '}
             {totalQuantity}
           </div>
