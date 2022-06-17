@@ -42,7 +42,5 @@ test('checkout test', async ({ page }) => {
   await confirmButtonLocator.click();
 
   // check if new page is thank you page
-  //await expect(page).toHaveURL(`${baseUrl}thankyou`);
-
-  // PWDEBUG=1 yarn playwright test
+  // await expect(page).toHaveURL(`${baseUrl}thankyou`);
 });
