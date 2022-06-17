@@ -297,7 +297,6 @@ export default function Cart(props) {
             </div>
           </div>
         </div>
-        )
       </div>
       <div css={shopFooterStyles}>
         <Link href="/"> return to dot shop</Link>
