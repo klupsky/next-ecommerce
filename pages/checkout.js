@@ -414,7 +414,7 @@ export default function Checkout(props) {
           </form>
         </div>
       </main>
-      <div css={shopFooterStyles} data-test-id="cart-checkout">
+      <div css={shopFooterStyles}>
         <Link href="/">return to dot shop</Link>
       </div>{' '}
     </div>
