@@ -45,7 +45,7 @@ export default function Home() {
     <div>
       <div>
         <Head>
-          <title>Thank you for your dotty order!</title>
+          <title>Thank you for your order!</title>
           <meta name="description" content="Thank you for your order" />
           <link rel="icon" href="/dot.svg" />
         </Head>
