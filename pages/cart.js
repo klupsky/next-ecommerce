@@ -178,127 +178,126 @@ export default function Cart(props) {
       </Head>
 
       <div css={shopHeaderStyles}>
-        {cartProducts.length === 0 ? (
-          <h1>there are no dots in your cart</h1>
-        ) : (
-          <div css={productBoxStyles}>
+        <div css={productBoxStyles}>
+          {cartProducts.length === 0 ? (
+            <h1>there are no dots in your cart</h1>
+          ) : (
             <h1>your cart</h1>
+          )}
 
-            <div css={cartBoxStyles}>
-              {cartProducts.map((cartProduct) => {
-                return (
-                  <div
-                    css={dotGridStyles}
-                    key={`cart-${cartProduct.id}`}
-                    data-test-id={`cart-product-${cartProduct.id}`}
-                  >
-                    <div
-                      data-test-id={`cart-product-quantity-${cartProduct.id}`}
-                    >
-                      {cartProduct.quantity}
-                    </div>
-                    <div css={dotGridTitleStyles}>
-                      <Image
-                        data-test-id="product-image"
-                        src={`/images/${cartProduct.id}.svg`}
-                        width="70"
-                        height="70"
-                      />
-                    </div>
-                    <div css={dotGridTitleStyles}>
-                      {
-                        props.product.find((product) => {
-                          return cartProduct.id === product.id;
-                        }).name
-                      }
-                      {cartProduct.quantity === 1 ? '' : 's'}
-                    </div>
-                    <div css={dotGridContentStyles}>
-                      {props.product.find((product) => {
-                        return cartProduct.id === product.id;
-                      }).price * cartProduct.quantity}{' '}
-                      €
-                    </div>
-                    <div css={dotGridContentStyles}>
-                      <button
-                        css={buttonEffectStyle}
-                        onClick={() => {
-                          const newCart = cartProducts.find(
-                            (product) => product.id === cartProduct.id,
-                          );
-                          newCart.quantity += 1;
-                          setStringifiedCookie('cart', cartProducts);
-                          setCartProducts([...cartProducts]);
-                          // sets the setState in app.js
-
-                          props.setProductInCart(cartProducts);
-                        }}
-                      >
-                        +
-                      </button>
-                      <button
-                        css={buttonEffectStyle}
-                        onClick={() => {
-                          const newCart = cartProducts.find(
-                            (product) => product.id === cartProduct.id,
-                          );
-                          newCart.quantity -= 1;
-                          if (newCart.quantity < 0) {
-                            newCart.quantity = 0;
-                          }
-                          setStringifiedCookie('cart', cartProducts);
-                          setCartProducts([...cartProducts]);
-                          // sets the setState in app.js
-
-                          props.setProductInCart(cartProducts);
-                          // console.log(props.productInCart);
-                        }}
-                      >
-                        -
-                      </button>{' '}
-                    </div>
-                    <div css={dotGridButtonStyles}>
-                      <button
-                        data-test-id={`cart-product-remove-${cartProduct.id}`}
-                        css={buttonEffectStyle}
-                        onClick={() => {
-                          const newCart = cartProducts.filter((product) => {
-                            return product.id !== cartProduct.id;
-                          });
-                          setStringifiedCookie('cart', newCart);
-                          setCartProducts(newCart);
-                          // sets the setState in app.js
-
-                          props.setProductInCart(newCart);
-                        }}
-                      >
-                        remove
-                      </button>{' '}
-                    </div>
+          <div css={cartBoxStyles}>
+            {cartProducts.map((cartProduct) => {
+              return (
+                <div
+                  css={dotGridStyles}
+                  key={`cart-${cartProduct.id}`}
+                  data-test-id={`cart-product-${cartProduct.id}`}
+                >
+                  <div data-test-id={`cart-product-quantity-${cartProduct.id}`}>
+                    {cartProduct.quantity}
                   </div>
-                );
-              })}
-              <div css={dotGridSumStyles}>
-                <div>
-                  {totalQuantity} {totalQuantity === 1 ? 'dot' : 'dots'}
-                </div>
-                <div />
-                <div css={sumStyle}>
-                  <span data-test-id="cart-total">{sum}</span> €
-                </div>
-                <div />
-                <div />
-                <div css={dotGridButtonStyles}>
-                  <Link href="/checkout">
-                    <button data-test-id="cart-checkout" css={buttonBuyStyle}>
-                      buy
+                  <div css={dotGridTitleStyles}>
+                    <Image
+                      data-test-id="product-image"
+                      src={`/images/${cartProduct.id}.svg`}
+                      width="70"
+                      height="70"
+                    />
+                  </div>
+                  <div css={dotGridTitleStyles}>
+                    {
+                      props.product.find((product) => {
+                        return cartProduct.id === product.id;
+                      }).name
+                    }
+                    {cartProduct.quantity === 1 ? '' : 's'}
+                  </div>
+                  <div css={dotGridContentStyles}>
+                    {props.product.find((product) => {
+                      return cartProduct.id === product.id;
+                    }).price * cartProduct.quantity}{' '}
+                    €
+                  </div>
+                  <div css={dotGridContentStyles}>
+                    <button
+                      css={buttonEffectStyle}
+                      onClick={() => {
+                        const newCart = cartProducts.find(
+                          (product) => product.id === cartProduct.id,
+                        );
+                        newCart.quantity += 1;
+                        setStringifiedCookie('cart', cartProducts);
+                        setCartProducts([...cartProducts]);
+                        // sets the setState in app.js
+
+                        props.setProductInCart(cartProducts);
+                      }}
+                    >
+                      +
                     </button>
-                  </Link>
+                    <button
+                      css={buttonEffectStyle}
+                      onClick={() => {
+                        const newCart = cartProducts.find(
+                          (product) => product.id === cartProduct.id,
+                        );
+                        newCart.quantity -= 1;
+                        if (newCart.quantity < 0) {
+                          newCart.quantity = 0;
+                        }
+                        setStringifiedCookie('cart', cartProducts);
+                        setCartProducts([...cartProducts]);
+                        // sets the setState in app.js
+
+                        props.setProductInCart(cartProducts);
+                        // console.log(props.productInCart);
+                      }}
+                    >
+                      -
+                    </button>{' '}
+                  </div>
+                  <div css={dotGridButtonStyles}>
+                    <button
+                      data-test-id={`cart-product-remove-${cartProduct.id}`}
+                      css={buttonEffectStyle}
+                      onClick={() => {
+                        const newCart = cartProducts.filter((product) => {
+                          return product.id !== cartProduct.id;
+                        });
+                        setStringifiedCookie('cart', newCart);
+                        setCartProducts(newCart);
+                        // sets the setState in app.js
+
+                        props.setProductInCart(newCart);
+                      }}
+                    >
+                      remove
+                    </button>{' '}
+                  </div>
                 </div>
+              );
+            })}
+            <div css={dotGridSumStyles}>
+              <div>
+                {totalQuantity} {totalQuantity === 1 ? 'dot' : 'dots'}
+              </div>
+              <div />
+              <div css={sumStyle}>
+                <span data-test-id="cart-total">{sum}</span> €
+              </div>
+              <div />
+              <div />
+              <div css={dotGridButtonStyles}>
+                <Link href="/checkout">
+                  <button data-test-id="cart-checkout" css={buttonBuyStyle}>
+                    buy
+                  </button>
+                </Link>
               </div>
             </div>
           </div>
-        )}
+        </div>
+        )
       </div>
       <div css={shopFooterStyles}>
         <Link href="/"> return to dot shop</Link>
