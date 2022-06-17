@@ -279,7 +279,7 @@ export default function Cart(props) {
                 );
               })}
               <div css={dotGridSumStyles}>
-                <div data-test-id="cart-total">
+                <div>
                   {totalQuantity} {totalQuantity === 1 ? 'dot' : 'dots'}
                 </div>
                 <div />
