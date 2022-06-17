@@ -13,7 +13,7 @@ this is a desktop version btw - please look at it on a screen width bigger than 
 
 ## Technologies used
 
-**Client:** Next.js, React, TypeScript, Jest, Paywright, styled Components
+**Client:** Next.js, React, TypeScript, Jest, Playwright, styled Components
 
 **Server:** Node.js, PostgreSQL
 
