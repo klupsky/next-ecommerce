@@ -402,11 +402,11 @@ export default function Checkout(props) {
               <button
                 css={buttonBuyStyle}
                 data-test-id="checkout-confirm-order"
-                // onClick={() => {
-                //   deleteCookie('cart');
+                onClick={() => {
+                  deleteCookie('cart');
 
-                //   props.setProductInCart([]);
-                // }}
+                  props.setProductInCart([]);
+                }}
               >
                 confirm
               </button>
