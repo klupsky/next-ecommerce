@@ -5,7 +5,7 @@ this is a full-stack application using cookies. it simulates an online webstore,
 
 - a landingpage with all the available products (dots) listed
 - the user can browse through the different product-pages and add a selected amount of dots to the cart
-- the amount of dots in the cart are always visible in the header
+- the amount of dots in the cart is always visible in the header
 - on the cart page, the user can change or remove the dots from the cart
 - the user can find the total on the checkout page and fill out all the shipping infos
 
