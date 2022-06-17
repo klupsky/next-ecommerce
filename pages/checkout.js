@@ -385,7 +385,7 @@ export default function Checkout(props) {
               <li>
                 {' '}
                 <label>
-                  <span> cvc:</span>
+                  <span> security code:</span>
                   <input
                     data-test-id="checkout-security-code"
                     value={infos.securityCode}
