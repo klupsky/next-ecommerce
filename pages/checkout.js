@@ -189,6 +189,33 @@ export default function Checkout(props) {
     calculateTotalSum();
   }, [cartProducts, props.product]);
 
+  // resetting the form on submit
+  const [infos, setInfos] = useState({
+    firstname: '',
+    llastname: '',
+    email: '',
+    address: '',
+    city: '',
+    postalCode: '',
+    country: '',
+    creditCard: '',
+    expirationDate: '',
+    securityCode: '',
+  });
+
+  const set = (name) => {
+    return ({ target: { info } }) => {
+      setInfos((oldInfos) => ({ ...oldInfos, [name]: info }));
+    };
+  };
+
+  // form submit links to thankyou page and cleans up the cookies in cart
+  const onSubmit = (event) => {
+    event.preventDefault();
+    window.location.href = '/thankyou';
+    deleteCookie('cart');
+  };
+
   return (
     <div>
       <Head>
@@ -243,51 +270,87 @@ export default function Checkout(props) {
 
         <br />
         <div css={formContainerStyle}>
-          <form>
+          <form onSubmit={onSubmit}>
             <ul css={formOuterStyles}>
               <li>
                 <label>
                   <span>first name:</span>
-                  <input data-test-id="checkout-first-name" required />
+                  <input
+                    data-test-id="checkout-first-name"
+                    value={infos.firstname}
+                    onChange={set('firstname')}
+                    required
+                  />
                 </label>{' '}
               </li>{' '}
               <li>
                 <label>
                   <span> last name:</span>
-                  <input data-test-id="checkout-last-name" required />
+                  <input
+                    data-test-id="checkout-last-name"
+                    value={infos.lastname}
+                    onChange={set('lastname')}
+                    required
+                  />
                 </label>
               </li>
               <li>
                 <label>
                   <span>email:</span>
-                  <input type="email" data-test-id="checkout-email" required />
+                  <input
+                    type="email"
+                    data-test-id="checkout-email"
+                    value={infos.email}
+                    onChange={set('email')}
+                    required
+                  />
                 </label>
               </li>
               <li>
                 {' '}
                 <label>
                   <span>adress:</span>
-                  <input data-test-id="checkout-address" required />
+                  <input
+                    data-test-id="checkout-address"
+                    value={infos.address}
+                    onChange={set('address')}
+                    required
+                  />
                 </label>{' '}
               </li>
               <li>
                 {' '}
                 <label>
                   <span> city:</span>
-                  <input data-test-id="checkout-city" required />
+                  <input
+                    data-test-id="checkout-city"
+                    value={infos.city}
+                    onChange={set('city')}
+                    required
+                  />
                 </label>
               </li>
               <li>
                 {' '}
                 <label>
                   <span>postal code:</span>
-                  <input data-test-id="checkout-postal-code" required />
+                  <input
+                    data-test-id="checkout-postal-code"
+                    value={infos.postalCode}
+                    onChange={set('postalCode')}
+                    required
+                  />
                 </label>
               </li>
               <li>
                 <label>
                   country:
-                  <input data-test-id="checkout-country" required />
+                  <input
+                    data-test-id="checkout-country"
+                    value={infos.country}
+                    onChange={set('country')}
+                    required
+                  />
                 </label>
               </li>
               <li>
@@ -298,6 +361,8 @@ export default function Checkout(props) {
                   <input
                     data-test-id="checkout-credit-card"
                     type="number"
+                    value={infos.creditCard}
+                    onChange={set('creditCard')}
                     maxLength={12}
                     required
                   />
@@ -310,6 +375,8 @@ export default function Checkout(props) {
                     data-test-id="checkout-expiration-date"
                     placeholder="mm/yyyy"
                     type="number"
+                    value={infos.expirationDate}
+                    onChange={set('expirationDate')}
                     maxLength={12}
                     required
                   />
@@ -321,6 +388,8 @@ export default function Checkout(props) {
                   <span> cvc:</span>
                   <input
                     data-test-id="checkout-security-code"
+                    value={infos.securityCode}
+                    onChange={set('securityCode')}
                     type="password"
                     required
                   />
@@ -328,21 +397,20 @@ export default function Checkout(props) {
               </li>
               <br />{' '}
             </ul>
-            <Link href="/thankyou">
-              <div css={buttonCenterStyle}>
-                <button
-                  css={buttonBuyStyle}
-                  data-test-id="checkout-confirm-order"
-                  onClick={() => {
-                    deleteCookie('cart');
 
-                    props.setProductInCart([]);
-                  }}
-                >
-                  confirm
-                </button>
-              </div>
-            </Link>
+            <div css={buttonCenterStyle}>
+              <button
+                css={buttonBuyStyle}
+                data-test-id="checkout-confirm-order"
+                // onClick={() => {
+                //   deleteCookie('cart');
+
+                //   props.setProductInCart([]);
+                // }}
+              >
+                confirm
+              </button>
+            </div>
           </form>
         </div>
       </main>
