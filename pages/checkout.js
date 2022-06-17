@@ -373,7 +373,6 @@ export default function Checkout(props) {
                   <span>expiration date:</span>
                   <input
                     data-test-id="checkout-expiration-date"
-                    placeholder="mm/yyyy"
                     type="number"
                     value={infos.expirationDate}
                     onChange={set('expirationDate')}
