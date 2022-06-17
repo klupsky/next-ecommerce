@@ -291,8 +291,8 @@ export default function Cart(props) {
                 <Link href="/checkout">
                   <button
                     data-test-id="cart-checkout"
-                    disabled={cartProducts === 0 ? true : false}
                     css={buttonBuyStyle}
+                    disabled={cartProducts.length === 0}
                   >
                     buy
                   </button>
