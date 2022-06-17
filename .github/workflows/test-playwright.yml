@@ -18,7 +18,7 @@ PGPASSWORD=next_ecommerce
           pg_isready
       - name: Create database user
         run: |
-          sudo -u postgres psql --command="CREATE USER next_js_ecommerce PASSWORD 'next_ecommerce'" --command="\du"
+          sudo -u postgres psql --command="CREATE USER next_ecommerce PASSWORD 'next_ecommerce'" --command="\du"
       - name: Create database and allow user
         run: |
           sudo -u postgres createdb --owner=next_ecommerce next_ecommerce
