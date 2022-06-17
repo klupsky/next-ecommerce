@@ -40,7 +40,7 @@ const shopMainStyles = css`
   background-position: 0 0, 80px 80px, 0px 80px, 80px 0px;
 `;
 
-export default function Home() {
+export default function Thankyou() {
   return (
     <div>
       <div>
@@ -57,10 +57,6 @@ export default function Home() {
               thank you <br />
               for your order
             </h1>
-            there are now <span data-test-id="cart-count">
-              {totalQuantity}
-            </span>{' '}
-            dots in your cart and you owe me <span>{sum}</span> €. we're fine.
           </div>
         </main>
         <div css={shopFooterStyles} data-test-id="cart-checkout">
