@@ -195,7 +195,7 @@ export default function Cart(props) {
                     <div
                       data-test-id={`cart-product-quantity-${cartProduct.id}`}
                     >
-                      {cartProduct.quantity} x
+                      {cartProduct.quantity}
                     </div>
                     <div css={dotGridTitleStyles}>
                       <Image
@@ -211,6 +211,7 @@ export default function Cart(props) {
                           return cartProduct.id === product.id;
                         }).name
                       }
+                      {cartProduct.quantity === 1 ? '' : 's'}
                     </div>
                     <div css={dotGridContentStyles}>
                       {props.product.find((product) => {
@@ -278,7 +279,9 @@ export default function Cart(props) {
                 );
               })}
               <div css={dotGridSumStyles}>
-                <div data-test-id="cart-total">{totalQuantity} x</div>
+                <div data-test-id="cart-total">
+                  {totalQuantity} {totalQuantity === 1 ? 'dot' : 'dots'}
+                </div>
                 <div />
                 <div css={sumStyle}>
                   <span data-test-id="cart-total">{sum}</span>.00 €

@@ -214,12 +214,13 @@ export default function Checkout(props) {
                       height="70"
                     />
                     <br />
-                    {cartProduct.quantity} x{' '}
+                    {cartProduct.quantity}{' '}
                     {
                       props.product.find((product) => {
                         return cartProduct.id === product.id;
                       }).name
                     }
+                    {cartProduct.quantity === 1 ? '' : 's'}
                   </div>
                 </div>
               );
@@ -227,7 +228,10 @@ export default function Checkout(props) {
           </div>
 
           <div css={priceBoxStyle}>
-            <div>your cart contains {totalQuantity} dots </div>
+            <div>
+              your cart contains {totalQuantity}{' '}
+              {totalQuantity === 1 ? 'dot' : 'dots'}
+            </div>
             <div css={priceStyle}>
               total price: <span css={sumStyle}>{sum}.00 €</span>
             </div>{' '}

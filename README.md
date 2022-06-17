@@ -1,7 +1,7 @@
-# dot shop, Next.js e-commerce store
+# ⚫ çdot shop, Next.js e-commerce store
 
-everybody loves dots! and in this e-commerce store you can finally purchase them!
-this is a full-stack application, that simulates an online webstore, including all proper functions, including:
+everybody loves dots! and in this e-commerce store you can purchase them for your happyness!
+this is a full-stack application using cookies. it simulates an online webstore, including all proper functions, including:
 
 - a landingpage with all the available products (dots) listed
 - the user can browse through the different product-pages and add a selected amount of dots to the cart
@@ -11,7 +11,7 @@ this is a full-stack application, that simulates an online webstore, including a
 
 ## Technologies used
 
-**Client:** Next.js, React, TypeScript, Jest, Paywright
+**Client:** Next.js, React, TypeScript, Jest, Paywright, styled Components
 
 **Server:** Node.js, PostgreSQL
 
