@@ -274,7 +274,7 @@ export default function Checkout(props) {
             <ul css={formOuterStyles}>
               <li>
                 <label>
-                  <span>first name:</span>
+                  first name:
                   <input
                     data-test-id="checkout-first-name"
                     value={infos.firstname}
