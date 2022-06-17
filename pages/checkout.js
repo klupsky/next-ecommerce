@@ -191,8 +191,8 @@ export default function Checkout(props) {
 
   // resetting the form on submit
   const [infos, setInfos] = useState({
-    firstname: '',
-    llastname: '',
+    firstName: '',
+    lastName: '',
     email: '',
     address: '',
     city: '',
@@ -277,8 +277,8 @@ export default function Checkout(props) {
                   <span>first name:</span>
                   <input
                     data-test-id="checkout-first-name"
-                    value={infos.firstname}
-                    onChange={set('firstname')}
+                    value={infos.firstName}
+                    onChange={set('firstName')}
                     required
                   />
                 </label>{' '}
@@ -288,8 +288,8 @@ export default function Checkout(props) {
                   <span> last name:</span>
                   <input
                     data-test-id="checkout-last-name"
-                    value={infos.lastname}
-                    onChange={set('lastname')}
+                    value={infos.lastName}
+                    onChange={set('lastName')}
                     required
                   />
                 </label>
