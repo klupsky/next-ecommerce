@@ -18,10 +18,10 @@ PGPASSWORD=next_ecommerce
           pg_isready
       - name: Create database user
         run: |
-          sudo -u postgres psql --command="CREATE USER next_js_example_spring_2022 PASSWORD 'next_js_example_spring_2022'" --command="\du"
+          sudo -u postgres psql --command="CREATE USER next_js_ecommerce PASSWORD 'next_ecommerce'" --command="\du"
       - name: Create database and allow user
         run: |
-          sudo -u postgres createdb --owner=next_js_example_spring_2022 next_js_example_spring_2022
+          sudo -u postgres createdb --owner=next_ecommerce next_ecommerce
       - uses: actions/checkout@v2
       # Use the official setup-node action (sets up Node.js):
       # https://github.com/actions/setup-node
