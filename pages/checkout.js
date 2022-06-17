@@ -233,7 +233,7 @@ export default function Checkout(props) {
               {totalQuantity === 1 ? 'dot' : 'dots'}
             </div>
             <div css={priceStyle}>
-              total price: <span css={sumStyle}>{sum}.00 €</span>
+              total price: <span css={sumStyle}>{sum} €</span>
             </div>{' '}
           </div>
         </div>

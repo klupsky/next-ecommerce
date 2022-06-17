@@ -216,8 +216,8 @@ export default function Cart(props) {
                     <div css={dotGridContentStyles}>
                       {props.product.find((product) => {
                         return cartProduct.id === product.id;
-                      }).price * cartProduct.quantity}
-                      .00 €
+                      }).price * cartProduct.quantity}{' '}
+                      €
                     </div>
                     <div css={dotGridContentStyles}>
                       <button
@@ -284,7 +284,7 @@ export default function Cart(props) {
                 </div>
                 <div />
                 <div css={sumStyle}>
-                  <span data-test-id="cart-total">{sum}</span>.00 €
+                  <span data-test-id="cart-total">{sum}</span> €
                 </div>
                 <div />
                 <div />
