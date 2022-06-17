@@ -1,4 +1,4 @@
-# ⚫ çdot shop, Next.js e-commerce store
+# ⚫ dot shop, Next.js e-commerce store
 
 everybody loves dots! and in this e-commerce store you can purchase them for your happyness!
 this is a full-stack application using cookies. it simulates an online webstore, including all proper functions, including:
