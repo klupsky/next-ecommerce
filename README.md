@@ -9,6 +9,8 @@ this is a full-stack application using cookies. it simulates an online webstore,
 - on the cart page, the user can change or remove the dots from the cart
 - the user can find the total on the checkout page and fill out all the shipping infos
 
+this is a desktop version btw - please look at it on a screen width bigger than 1680 px!
+
 ## Technologies used
 
 **Client:** Next.js, React, TypeScript, Jest, Paywright, styled Components
