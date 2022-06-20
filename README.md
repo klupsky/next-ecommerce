@@ -1,7 +1,8 @@
 # ⚫ dot shop, Next.js e-commerce store
 
 everybody loves dots! and in this e-commerce store you can purchase them for your happyness!
-this is a full-stack application using cookies. it simulates an online webstore, including all proper functions:
+
+this is a full-stack application using cookies. it is only a simulation of an online webstore, while including all proper functions:
 
 - a landingpage with all the available products (dots) listed
 - the user can browse through the different product-pages and add a selected amount of dots to the cart
@@ -9,7 +10,7 @@ this is a full-stack application using cookies. it simulates an online webstore,
 - on the cart page, the user can change or remove the dots from the cart
 - the user can find the total on the checkout page and fill out all the shipping infos
 
-this is a desktop version btw - please look at it on a screen width bigger than 1680 px!
+this is a desktop version btw - please look at it on a screen width bigger than 1240 px!
 
 ## Technologies used
 
