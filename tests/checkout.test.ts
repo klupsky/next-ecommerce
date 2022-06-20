@@ -24,7 +24,7 @@ test('checkout test', async ({ page }) => {
   // on checkout page fill out form
   await page.locator('data-test-id=checkout-first-name').fill('test');
   await page.locator('data-test-id=checkout-last-name').fill('test');
-  await page.locator('data-test-id=checkout-email').fill('test');
+  await page.locator('data-test-id=checkout-email').fill('test@test.com');
   await page.locator('data-test-id=checkout-address').fill('test');
   await page.locator('data-test-id=checkout-city').fill('test');
   await page.locator('data-test-id=checkout-postal-code').fill('test');
@@ -42,5 +42,5 @@ test('checkout test', async ({ page }) => {
   await confirmButtonLocator.click();
 
   // check if new page is thank you page
-  // await expect(page).toHaveURL(`${baseUrl}thankyou`);
+  await expect(page).toHaveURL(`${baseUrl}thankyou`);
 });
