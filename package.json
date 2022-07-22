@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "migrate": "dotenv ley",
+    "migrate": "dotenv -- ley",
     "test": "jest",
     "heroku-postbuild": "yarn migrate up && yarn build"
   },
