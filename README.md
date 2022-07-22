@@ -20,11 +20,11 @@ this is a desktop version btw - please look at it on a screen width bigger than 
 
 ## Sreenshots
 
-### landingpage
+### Landingpage
 
 <img src="./public/images/screenshots/index.png" width="70%">
 
-### product page
+### Product page
 
 <img src="./public/images/screenshots/productpage.png" width="70%">
 
